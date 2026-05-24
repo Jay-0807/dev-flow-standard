@@ -1,0 +1,115 @@
+# Autopilot 配置（默认值模板）
+# 首次设置：cp 本文件到 ~/.autopilot/config.yaml 后按需修改
+
+# ===== 触发模式 =====
+tier: 1   # 1 (Conservative) / 2 (Standard) / 3 (Aggressive)
+# Tier 1: 所有候选 PM 必批，安全
+# Tier 2: 小候选自动跑，大候选问 PM
+# Tier 3: 全自动（仅 4 红线 escalate）
+
+# ===== 调度 =====
+schedule:
+  cron: "0 9 * * 1-5"            # 周一到周五 09:00
+  timezone: "Asia/Shanghai"
+
+# ===== 工作时段栅栏 =====
+working_hours_fence:
+  allowed_start_hours: [21, 22, 23, 0, 1, 2, 3, 4]   # 仅过夜跑（21:00-04:00）
+  forbidden_days: ["Sat", "Sun"]                      # 周末不跑
+  forbidden_dates: []                                  # 假期等
+
+# ===== 预算上限 =====
+budget:
+  max_iterations_per_day: 1
+  max_iterations_per_week: 5
+  max_llm_tokens_per_day: 5000000     # 5M tokens/day
+  max_consecutive_failures_before_pause: 2
+
+# ===== Blast radius 限制 =====
+blast_radius_limits:
+  max_files_changed: 30
+  max_loc_added: 500
+  forbidden_paths:
+    - "src/auth/**"
+    - "infra/**"
+    - "**/migrations/**"
+    - ".github/workflows/**"
+    - "package.json"
+    - "next.config.js"
+    - "project.config.yaml"
+  forbidden_for_tier_2_only:
+    - "src/payments/**"
+    - "src/order-flow/**"
+  forbidden_for_tier_3_only:
+    - "src/api/**"             # Tier 3 也不能改 API（必须 PM 批 PRD）
+
+# ===== Connector 启用 =====
+connectors:
+  roadmap:
+    enabled: true
+    weight: 2.0                  # PM 显式写的，加权
+    path: "~/.autopilot-data/product-roadmap.md"
+  user-feedback:
+    enabled: false               # W2 开
+    weight: 1.5
+    source: "iteration-vault/history/*/10.5-user-acceptance.md"
+    min_repeat_count: 2          # 至少 2 次重复才算
+  github-issues:
+    enabled: false               # W3 开
+    weight: 1.0
+    repo: "<your-org>/<your-repo>"
+    labels: ["bug", "enhancement", "P0", "P1"]
+  sentry:
+    enabled: false               # W4 开
+    weight: 1.0
+    org: "<your-org>"
+    query: "status:unresolved age:>3d level:[error,fatal]"
+    top_n: 20
+  notion:
+    enabled: false               # W4 开
+    weight: 1.0
+    database_id: "<replace-with-actual>"
+    view_id: "<replace-with-actual>"
+
+# ===== 优先级算法 =====
+priority_algorithm:
+  mode: "fixed_formula"          # fixed_formula / llm_judged / hybrid
+  weights:
+    business_impact: 0.30
+    user_pain_freq: 0.25
+    age_boost: 0.15
+    confidence: 0.10
+    complexity_penalty: 0.20
+  age_cap_days: 60
+
+# ===== Tier 2 自动启动条件 =====
+tier_2_auto_start:
+  size_max: "small"              # 仅 small 自动跑
+  score_min: 2.5                 # 优先级分数门槛
+  blast_radius_max:
+    files: 10
+    loc: 100
+  pm_veto_window_hours: 8        # 09:00 决定 → 17:00 前 PM 可 veto
+
+# ===== 通知 =====
+notifications:
+  morning_digest:
+    enabled: true
+    path: "~/.autopilot/morning-digest-<date>.md"
+  inbox:
+    enabled: true
+    path: "~/.autopilot/INBOX.md"
+  push_notification:
+    enabled: false               # 需要额外集成
+
+# ===== 黑名单 =====
+blacklist:
+  path: "~/.autopilot/blacklist.yaml"
+  cooldown_after_fail_days: 14   # 失败 1 次 14 天不再选
+  cooldown_after_fail_2_days: 60 # 失败 2 次 60 天
+
+# ===== 日志 =====
+logs:
+  level: "info"                  # debug / info / warn / error
+  path: "~/.autopilot/logs/"
+  retention_days: 90
