@@ -1,4 +1,8 @@
-# Phase 13 — Autopilot Handoff（Phase 12 后回流给 Autopilot）
+# 🤖 Autopilot 回流
+
+> 内部编号：Phase 13
+> 模式：🤖 Autonomous（仅 autopilot 触发时跑）
+> 用途：写 run-history.jsonl + state.json update，回流给 Autopilot 模式
 
 > **作用**：主流水线 Phase 12 完成 + Phase 12.5 PM 复盘后，把"本轮结果"反馈给 autopilot 唤醒循环。这是 autopilot Sibling Cycle 的接口点。
 > **触发**：Phase 12.5 PM 选 ✅ merge 或 ⏸ 推下夜或 ❌ 重做 时。

@@ -1,6 +1,8 @@
-# Phase 10 验收违规清单模板（带编号）
+# 🛡️ 上线前质量检查违规清单模板（带编号）
 
-> Phase 10 五层验收输出违规清单到 `iteration-vault/10-verification-redlines.md` 按本模板。
+> 内部编号：Phase 10 五层验收的违规清单模板
+> **红线定义唯一来源**：`gan-engine/quality-redlines.md`（SSOT）。本文件只定义**编号格式**和**模板结构**，不复述红线内容。
+> 输出位置：`iteration-vault/10-verification-redlines.md`
 
 ---
 

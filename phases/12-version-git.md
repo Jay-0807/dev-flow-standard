@@ -1,4 +1,7 @@
-# Phase 12 — 版本管理 + git/GitHub Release 🤖 Autonomous（v2 新增）
+# 🚀 git 发版
+
+> 内部编号：Phase 12
+> 模式：🤖 Autonomous（git 工作流 + GitHub Release + release-please）
 
 ## 目标
 本 skill 的**最后一个 phase**。完成本次迭代的 git 工作流闭环：

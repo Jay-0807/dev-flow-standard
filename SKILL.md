@@ -5,6 +5,10 @@ description: 通用代码项目开发工作流编排器 v4（业务无关、技�
 
 # Universal Coding Project Development Skill v4 — 通用代码项目开发工作流
 
+> **新手 5 分钟上手** → 先读 `ARCHITECTURE.md`（30 行顶层导航）+ `phases/MANIFEST.md`（17 步骤 I/O 一表），再回来读本文件。
+>
+> **业务名 vs 内部编号**：对 PM 暴露的所有文档（RUN-LOG / DEBUG-TRACE / 决策日志 / 早晨复盘）**必须用业务名 + emoji**（如 📝 PRD 撰写 / 🛡️ 上线前质量检查），禁止用 "Phase X" 编号。映射表见 `phases/MANIFEST.md`。
+>
 > **v4 = v2 的 13 phase + 8 大模块**（API 整理 / 夜间模式 v2 / Autopilot / GAN 引擎 / 文档压缩 / 方案发散 / 五层验收 / 漂移检测）。
 >
 > 从 firefly-web-os-orchestrator-skill v4 backport，去除 firefly 业务上下文（r4 哲学 / 项目业务协议（如有） / 电商客户），保留所有通用机制。
@@ -65,7 +69,20 @@ PM 或开发者提出代码需求时，走完"想法 → PRD → 架构 → 设�
 
 ---
 
-## 完整工作流（v4: 2 关卡 + 8 模块 + 17 阶段 + 跨夜分批）
+## 标准开发路径（默认且唯一）
+
+PRD ⛳ 通过后 **自动一气呵成跑完到 🚀 git 发版**，PM 早上回来走 ☀️ 早晨复盘。
+**不存在 fast-track / standard / manual 三种模式选项 —— 就这一条路径。**
+
+Autopilot（AI 主动捡需求开始跑）是**另一条入口**（cron tick 触发），复用本路径但启动方式不同。详见 `autopilot/README.md`。
+
+---
+
+## 完整工作流（v5：17 步骤 + 2 PM 关卡 + 8 模块）
+
+> **下面 ASCII 图保留内部 Phase 编号便于技术追溯**。PM 视角的业务名版（💬 需求澄清 / 🏗️ 架构与接口设计 / 等）见 `phases/MANIFEST.md`。
+>
+> **v5 vs v4 关键变化**：删 Phase 10.5 真人验收 / 合并 0+1 / 合并 4+4.5 / 合并 5a+5b / 删 PRD 关卡批数跟进问。
 
 ```
 PHASE 0  需求接收 & 大小分级
@@ -81,7 +98,7 @@ PHASE 1.5  用户研究
 PHASE 2  PRD 撰写 ⛳ 关卡 1（PM 必参与，GAN 引擎）
    │  调用：/autodev-ideation + product-sprint-prioritizer + docx + GAN
    │  产出：iteration-vault/02-PRD.md + 02-prd-gan/
-   ▼  ⛳ PM 三选项 + 批数跟进问 → 启动夜间模式
+   ▼  ⛳ PM 三选项 → 自动启动夜间模式（不再问批数，Phase 6 自动估算）
 ═══════════════════════════════════════════════════════════════
 🌙 夜间模式区（Phase 2.5-12，PM 离场，仅 4 红线 escalate；可分批）
 ═══════════════════════════════════════════════════════════════
@@ -208,7 +225,7 @@ PHASE 13 🆕 autopilot handoff（仅 autopilot-triggered 迭代）
 
 ## 启动时主动反问（Step 0）
 
-收到用户需求后，**先输出 4 件事再开干**：
+收到用户需求后，**先输出 3 件事再开干**（v5 删除第 4 项"批数选择"，工时下放到 📋 任务拆解 自动估算）：
 
 1. **复述需求** — 1-2 句话结构化复述（避免误解）
 2. **项目类型** — 用 AskUserQuestion 问（详见 `reference/project-type-router.md`）：
@@ -216,8 +233,14 @@ PHASE 13 🆕 autopilot handoff（仅 autopilot-triggered 迭代）
    - B 端 SaaS
    - AI 原生应用
    - 别的（让用户描述）
-3. **目标粒度** — 完整 17 阶段 / 仅前 5 阶段（PRD-实施前的"做规划"）/ 仅后 5 阶段（已有代码、跑测试到上线）
-4. **预估关卡数 & 时间** — v4 默认 2 个 ⛳ 关卡（PRD + 早晨复盘），整体走完预计 4-8h（视改动复杂度），PM 在 2 个节点参与；其余 Phase 2.5-12 夜间模式 autonomous 跑。如估算 > 4h 可选分批跑。
+3. **跑哪一段** — 用 AskUserQuestion 问：
+   - 完整流程（默认，💬 需求澄清 → ☀️ 早晨复盘）
+   - 仅前段（截到 📝 PRD）—— PoC 期 / 只想出文档
+   - 仅后段（从已有代码到上线）—— 老项目接手
+
+**不再问"几批跑"** — 系统在 📋 任务拆解 阶段自动估算：
+- < 8h → 单批跑（默认）
+- ≥ 8h → 主动提示"估算 Xh，是否分批"让 PM 二选一
 
 启动时也**主动检查工作目录**（Read package.json / pyproject.toml / Cargo.toml 等），如果发现是 项目，**主动提示用户**："这看起来是 项目，要不要改用 firefly-web-os-orchestrator-skill（业务特化版）？"
 

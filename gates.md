@@ -143,6 +143,8 @@ PM 选 ❌ → 回 Phase 1 重新澄清
 - 当前 phase 停在原地，已完成部分保留
 - 标记 `iteration-vault/meta.json` 的 phase 状态为 `escalated-pending-pm`
 - 如果在 `/loop` 模式 → 暂停 loop
+- **必同步**：往 `iteration-vault/<run-id>/DEBUG-TRACE.md` 追加 E[NNN] 一条记录（模板：`templates/debug-trace.md`），含触发的 R 红线编号 / 触发位置 / 关联 ESCALATION-R[X].md 路径 / 当前状态
+- **同步更新 RUN-LOG.md**：在当前业务名行加 🚨 标记 + 指向 DEBUG-TRACE.md E[NNN] anchor
 
 ### 2. 写 ESCALATION-R[N].md
 统一格式（详见 `autonomous-mode.md` 的"Escalation 触发后的标准流程"段）。

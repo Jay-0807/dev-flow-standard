@@ -1,4 +1,8 @@
-# Phase 7 — 并行实施（前端/后端/DB 三路并行）
+# ⌨️ 代码实施
+
+> 内部编号：Phase 7
+> 模式：🤖 Autonomous + /loop + 每 code task GAN
+> 工作流：前端/后端/DB 三路 git worktree 并行实施
 
 ## 目标
 按 Phase 6 的任务分解，开启**多路并行实施**。前端、后端、数据库各自在独立 worktree 跑，互不阻塞。

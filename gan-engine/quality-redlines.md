@@ -6,6 +6,23 @@
 
 ---
 
+## ⚠️ SSOT 使用约定（重要）
+
+本文件是**质量红线的唯一权威**。其他任何文件（generator.md / reviewer-skeptical.md / phases/10-verify.md / templates/）**严禁复述红线内容**，只能：
+- 写一行 reference（"详见 gan-engine/quality-redlines.md"）
+- 或使用动态注入占位符 `{{REDLINES_FULL_TEXT}}`（主线程在 spawn agent 前会把本文件内容塞入）
+
+**新加 / 改一条红线的标准流程**：
+1. 只改本文件
+2. 其他文件自动生效（动态注入机制）
+3. 不需要改 generator.md / reviewer-skeptical.md / 10-verify.md / templates 任何一个
+
+**违反 SSOT 的迹象**：grep "R1 占位符" 或 "R2 mock" 等具体红线名出现在非本文件 → 必须删除复述、改为 reference 或占位符。
+
+**好处**：PM 想加新红线（如 R10 "禁止空 catch"）从"改 5 处 30 分钟"变成"改 1 处 5 分钟"，且永远不会出现 GAN 检查和验收检查标准不一致。
+
+---
+
 ## R1：禁占位符实现
 
 **触发样例**：

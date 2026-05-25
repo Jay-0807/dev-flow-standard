@@ -23,7 +23,7 @@
 
 | 阶段 | v2 行为 | v4 行为 |
 |---|---|---|
-| Phase 2 PRD | ⛳ PM 三选项 | ⛳ PM 三选项 + 加批数跟进问 |
+| 📝 PRD 撰写（Phase 2）| ⛳ PM 三选项 | ⛳ PM 三选项（**v5 删除"批数跟进问"**，📋 任务拆解 阶段自动估算 ≥ 8h 才提示分批）|
 | Phase 2.5 brainstorm 🆕 | — | 🤖 autonomous + GAN |
 | Phase 3 影响面 | 🤖 autonomous | 🤖 autonomous |
 | Phase 4 架构 | 🤖 autonomous + R1 | 🤖 autonomous + GAN + R1 |
@@ -123,6 +123,28 @@ PM 在 Phase 12.5 早晨复盘可触发：
 
 ---
 
+## 执行轨迹规范（RUN-LOG.md，M1 必写）
+
+夜间跑的**任何动作**必须往 `iteration-vault/<run-id>/RUN-LOG.md` 追加一行，使用**业务名 + emoji**，**禁止用 Phase X 编号**。
+
+业务名映射表见 `phases/MANIFEST.md` §业务名 ↔ 内部编号映射。
+
+模板见 `templates/run-log.md`。
+
+PM 早上**第一眼**就看这个文件（早晨复盘 Phase 12.5 Step 1）。其他文档（autonomous-decisions.md / DEBUG-TRACE.md / 各 phase 产出）是 RUN-LOG 的 drill-down，从 RUN-LOG anchor 跳过去。
+
+**写入触发点**：
+- 每个 phase 开始 → 写一行 `[HH:MM] <业务名 emoji> <一句话说人话>`
+- 每个 ⚠️ 自治决策 → 业务名行加 `→ ⚠️ AI 自己拍板了一个决策（#N）：<简述>`
+- 每个 ❌ 失败 / retry → 业务名行加 `→ ❌ <简述>` + 指向 DEBUG-TRACE.md#E[NNN]
+- 每个 🚨 红线触发 → 业务名行加 `→ 🚨 触发 R[X]` + 指向 ESCALATION-R[X].md
+- 每个 🔄 GAN PIVOT → 业务名行加 `→ 🔄 推倒重写` + 指向 DEBUG-TRACE.md#E[NNN]
+- phase 完成 → 业务名行加 `→ ✅` 或最终状态
+
+文件末尾的"📌 一夜要点"段在 🚀 git 发版（Phase 12）完成时由 skill 自动汇总写入。
+
+---
+
 ## 决策日志规范
 
 ### 文件：`iteration-vault/autonomous-decisions.md`
@@ -173,6 +195,8 @@ PM 在 Phase 12.5 早晨复盘可触发：
 - 写 `iteration-vault/ESCALATION-R[X].md`，标 🚨 状态
 - 当前 phase 停在原地，已完成的部分保留
 - 如果在分批模式：下一 batch 不启动
+- **必同步**：往 `iteration-vault/<run-id>/DEBUG-TRACE.md` 追加 E[NNN] 一条记录（模板：`templates/debug-trace.md`），含红线编号 / 触发位置 / 关联 ESCALATION 文件路径 / 当前状态
+- **同步更新 RUN-LOG.md**：在当前业务名行加 🚨 标记 + 指向 DEBUG-TRACE.md E[NNN] anchor
 
 ### Step 2: 生成决策报告
 

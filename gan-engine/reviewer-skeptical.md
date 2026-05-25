@@ -31,9 +31,13 @@
 
 # 审查步骤
 
-## Step 1：7 Quality Redlines 硬检查
+## Step 1：Quality Redlines 硬检查（动态注入）
 
-按 gan-engine/quality-redlines.md，逐条检查 R1-R7（如适用 R8 R9）。任一命中 critical → 立即标记 + 该维度自动 ≤ 3 分。
+下面是当前生效的质量红线（主线程已注入）：
+
+{{REDLINES_FULL_TEXT}}
+
+按上述红线**逐条检查**。任一命中 critical → 立即标记 + 该维度自动 ≤ 3 分。
 
 输出格式：
 
@@ -42,14 +46,13 @@
 
 | Redline | 状态 | 违规清单 |
 |---|---|---|
-| R1 占位符 | ✅/⚠️/❌ | <file>:<line>: <详情> 或 "无" |
-| R2 mock | ... | ... |
+| R[N] <红线名> | ✅/⚠️/❌ | <file>:<line>: <详情> 或 "无" |
 | ... | ... | ... |
-| R8 r4 三字段 | ✅/⚠️/❌/不适用 | ... |
-| R9 协议合规 | ✅/⚠️/❌/不适用 | ... |
 
 **critical redlines hit**: {{列出 critical 红线编号或 "无"}}
 ```
+
+维护说明：红线**唯一来源**是 `gan-engine/quality-redlines.md`，本文件不复述具体红线条目（SSOT 约定）。要改红线只改 quality-redlines.md。
 
 ## Step 2：4 维打分（1-10 分）
 

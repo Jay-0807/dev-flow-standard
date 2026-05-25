@@ -190,7 +190,11 @@ Round 2: dim1=8, dim2=8, dim3=4, dim4=6 = 26（持平）
 
 ---
 
-## 与 trace.md 的联动
+## 与 trace.md + DEBUG-TRACE.md 的联动
+
+> **联动约定**：除了写本 GAN 本地 trace.md，**必同步**往 `iteration-vault/<run-id>/DEBUG-TRACE.md` 追加 E[NNN] 一条记录（用于 PM 晨会 hot-jump）。
+>
+> PIVOT 在 RUN-LOG.md 显示为 "🔄 推倒重写" 标记 + 指向 DEBUG-TRACE.md#E[NNN] anchor。
 
 trace.md 完整结构（含 PIVOT 时）：
 

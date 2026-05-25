@@ -1,4 +1,8 @@
-# Phase 10 — 五层验收 🤖 Autonomous（v4 重写，学 autodev-verify）
+# 🛡️ 上线前质量检查
+
+> 内部编号：Phase 10  |  独立命令：/u-verify [--quick | --layer contract|static|runtime]
+> 模式：🤖 Autonomous + 五层验收 + 红线编号 + 失败自动回退（v4 重写，学 autodev-verify）
+> 五层：L1 契约 / L2 红线 / L3 静态 / L4 运行时 / L5 acceptance
 
 ## 这是什么
 
@@ -56,20 +60,18 @@
 
 ### Step 2：L2 红线层
 
-**调用**: 跑 `gan-engine/quality-redlines.md` 全部 9 红线（R1-R9）扫描 + 比对 RULES.md
+**调用**: 跑 `gan-engine/quality-redlines.md` 全部红线扫描 + 比对 RULES.md
 
-**检查项**（每条带编号）：
-- R1 占位符：grep `TODO|FIXME|HACK|XXX|stub` × 非测试文件 → `R1-XXX: <file>:<line>`
-- R2 mock 替代：grep `mock|dummy|fake|placeholder|sample` × 非测试文件 → `R2-XXX`
-- R3 降级语言：grep `"暂时"|"先用"|"for now"|"workaround"` × 代码/PRD/任务 → `R3-XXX`
-- R4 过时技术：比对 `package.json` 版本 vs `design.md` → `R4-XXX`
-- R5 OSS 复用：检查 `04-architecture.md` 是否有 OSS 比较矩阵 → `R5-XXX`
-- R6 emoji UI icon：grep JSX text 节点 emoji → `R6-XXX`
-- R7 未验证环境断言：grep "环境没装" 无 `--version` 证据 → `R7-XXX`
-- R8 r4 三字段（如 API）：检查 LLM 输出 API 是否含 `confidence` 字段 → `R8-XXX`
-- R9 协议合规（如适用）：检查 项目业务消息信封 9 字段 → `R9-XXX`
+**红线定义和 grep 命令唯一来源**：`gan-engine/quality-redlines.md` §reviewer 检查方法。
+本文件不复述（SSOT 约定）。要改红线只改 quality-redlines.md。
 
-**失败处理**: 任意 critical（R1/R2/R3 必为 critical）→ 回 Phase 7 修代码
+**输出**：每条违规带编号写到 `iteration-vault/10-verification-redlines.md`：
+- 格式：`L2-R<X>-<NNN>: <file>:<line>: <详情>`
+- 编号体系模板：见 `templates/verification-redlines-numbered.md`
+
+**任何 FAIL → 同时写 DEBUG-TRACE.md E[NNN]** 一条记录（含触发检测器 / 命中位置 / 关联红线编号 / 当前重试次数 / 自动行动）。
+
+**失败处理**: 任意 critical（R1/R2/R3 必为 critical）→ 回 ⌨️ 代码实施（Phase 7）修代码
 
 ### Step 3：L3 静态层
 
@@ -207,9 +209,35 @@ Phase 10 五层验收完成（第 [N] 次跑）:
 
 ---
 
+## Standalone 模式
+
+可独立触发：`/u-verify [--quick | --layer contract|static|runtime]`
+
+```
+/u-verify                       # 默认 L1-L5 全跑
+/u-verify --quick               # 仅 L1-L3（轻量，开发中用）
+/u-verify --layer contract      # 仅 L1 契约层
+/u-verify --layer static        # 仅 L3 静态层
+/u-verify --layer runtime       # 仅 L4 运行时层
+```
+
+不依赖主流水线 / iteration-vault，直接对当前工作目录 + 当前 git HEAD 跑五层验收。
+
+输入解析：
+- 没有 iteration-vault/ → 降级跑（L1 跳过，L2-L5 照跑）
+- 有 iteration-vault/ → 全套跑
+
+输出：
+- 单跑模式：`.u-verify-report-<timestamp>.md` 到当前目录
+- 流水线模式：`iteration-vault/10-verification-report.md`
+
+任何 FAIL → 同时写 DEBUG-TRACE.md 一条 E[NNN] 记录。
+
+---
+
 ## 维护备忘
 
 - 红线编号格式（`L1-XXX` / `L2-RY-XXX`）跨迭代稳定，PM 历史追溯
-- Quick mode 在 Phase 5b/6/7 间用，加快开发循环
+- Quick mode 在 Phase 5/6/7 间用，加快开发循环
 - L4 runtime 测试 mocking 与不 mocking 的平衡（autodev 实证：能不 mock 就不 mock）
 - L5 acceptance-testing 外部 skill 升级时同步本文件

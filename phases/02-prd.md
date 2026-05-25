@@ -1,4 +1,8 @@
-# Phase 2 — PRD 撰写 ⛳ 关卡 1（v4 加 GAN 钩子 + 批数跟进问）
+# 📝 PRD 撰写
+
+> 内部编号：Phase 2  |  ⛳ PM 关卡 1  |  独立命令：/u-prd
+> 模式：💬 PM 必参与 + GAN
+> v4 含 GAN 钩子（已删除"批数跟进问"，工时估算下放到 Phase 6 自动估算）
 
 ## 目标
 把 Phase 1 的需求 1-pager 扩展为完整 PRD（产品需求文档），覆盖背景、目标、用户故事、功能清单、验收标准、风险，确保后续架构/开发有据可依。这是**第一个 PM 关卡**（**v4 共 2 个 PM 关卡**：本 phase + Phase 12.5 早晨复盘）。
@@ -121,3 +125,14 @@ PM 选完后：
 ## 失败回退
 - 若 PRD 写出来 PM 反复修改 3 次以上 → 暂停，建议 PM 与 brainstorming + product-sprint-prioritizer 单独深聊
 - 若 PRD 涉及法律/合规风险 → 在 Step 3 之后追加调 `support-legal-compliance-checker` agent
+
+---
+
+## Standalone 模式
+
+可独立触发：`/u-prd "<feature>"`
+不依赖前置 vault（如无 iteration-vault/，主线程会自动创建一个简化 vault）。
+适合：PoC 期 / 只想出文档不写代码。
+输出：`iteration-vault/<date>-<title>/02-PRD.md` + docx 副本。
+任何 GAN FAIL → 同时写 DEBUG-TRACE.md。
+跳过下游 phase（不自动启动夜间模式），等 PM 后续命令。

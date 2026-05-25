@@ -36,15 +36,12 @@
    - Surgical Changes：不顺手改无关代码
    - Goal-Driven Execution：每个产出有可验证 AC
 
-2. **7 Quality Redlines**（见 gan-engine/quality-redlines.md）：
-   绝对禁止：
-   - R1 占位符（TODO/FIXME/stub/空函数体）
-   - R2 mock 替代（不在测试文件用 mock）
-   - R3 降级语言（"暂时"/"先用"/"for now"）
-   - R4 过时技术（用 deprecated API）
-   - R5 自研代替 OSS（必查 OSS）
-   - R6 emoji 作 UI icon
-   - R7 未验证的环境断言
+2. **质量红线（动态注入）**：
+{{REDLINES_FULL_TEXT}}
+
+↑ 主线程在 spawn 本 generator 前，把 `gan-engine/quality-redlines.md` §触发样例 + §例外 全段内容塞到这里。
+
+维护说明：要改/加红线，**只改 quality-redlines.md**，本文件不动（SSOT 约定）。
 
 3. **任务类型专属指令**：
 {{generator_instruction_extras_list}}
