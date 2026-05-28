@@ -52,7 +52,7 @@ connectors:
   user-feedback:
     enabled: false               # W2 开
     weight: 1.5
-    source: "iteration-vault/history/*/10.5-user-acceptance.md"
+    source: "iteration-vault/history/*/12.5-morning-review.md"
     min_repeat_count: 2          # 至少 2 次重复才算
   github-issues:
     enabled: false               # W3 开

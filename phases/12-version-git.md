@@ -225,7 +225,6 @@ merge 后，release-please-action 自动检测 commits，更新长期 Release PR
 📍 重点关注（PM 在 Phase 12.5 看的 4 个）：
 1. iteration-vault/autonomous-decisions.md 标 ⚠️ 的 [N] 条
 2. iteration-vault/09-review-reports/summary.md 的 should-fix
-3. iteration-vault/10.5-user-acceptance.md 的"最痛"
 4. **Release PR**: [URL] ← Phase 12.5 PM 决策后 merge
 
 🚀 下一步：

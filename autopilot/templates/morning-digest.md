@@ -31,7 +31,6 @@
 ## ⚠️ 需要 PM 看的（去 Phase 12.5 处理）
 
 1. **autonomous-decisions.md#decision-7**: 因为 vendor lock-in 边界，选了 lib-A 而不是 lib-B。理由站得住但 PM 需知情。
-2. **Phase 10.5 邀请测试**: 3 个用户邮件已草拟在 vault/10.5-invite-template.md，PM 看完发即可。
 
 ---
 

@@ -1,6 +1,6 @@
-# API 设计模板（Phase 4.5 输出）
+# API 设计模板（Phase 4 §2 API 输出）
 
-> 把本模板复制为 `iteration-vault/04.5-api-design.md`，逐段填充。
+> 把本模板复制为 `iteration-vault/04-architecture-and-api.md`，逐段填充。
 >
 > ⚠️ **本模板使用 A2A 协议作示例数据**。PM 按实际项目协议（REST / GraphQL / gRPC / 自研）改造接口清单中的"是否 A2A"列。
 
@@ -13,7 +13,7 @@
 **日期**: <YYYY-MM-DD>
 **对应 PRD**: iteration-vault/02-PRD.md
 **对应架构**: iteration-vault/04-architecture.md
-**对应 UX**: iteration-vault/05a-ux-design.md
+**对应 UX**: iteration-vault/05-interface-design.md
 
 ---
 
@@ -163,9 +163,9 @@ graph LR
 
 ## 3. 文档产物
 
-- **3.1 OpenAPI YAML**: `iteration-vault/04.5-api-spec.yaml`
-- **3.2 Postman collection**: `iteration-vault/04.5-api-postman.json`
-- **3.3 人类可读 API.md**: `iteration-vault/04.5-api.md`
+- **3.1 OpenAPI YAML**: `iteration-vault/04-api-spec.yaml`
+- **3.2 Postman collection**: `iteration-vault/04-api-postman.json`
+- **3.3 人类可读 API.md**: `iteration-vault/04-api.md`
 - **3.4 api-registry.md diff**: +2 新增 / 改 1 / deprecated 1
 
 ---
@@ -196,7 +196,7 @@ graph LR
 ## 5. 给 autonomous-decisions.md 的摘要
 
 ```
-[Phase 4.5 摘要]
+[Phase 4 §2 API 摘要]
 - 本迭代新增/修改 API: 2 个
 - 存量审计: 扫 [N] 个，发现 [M] 个命名不一致 / [K] 个废弃候选
 - 协议合规: [X/X] 通过

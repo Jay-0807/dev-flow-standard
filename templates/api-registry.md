@@ -1,8 +1,8 @@
 # API Registry — 跨迭代统一注册表（模板）
 
-> **作用**：跨迭代持久化追踪所有 API 接口的元数据。Phase 4.5 每次自动 append 更新。
+> **作用**：跨迭代持久化追踪所有 API 接口的元数据。Phase 4 §2 API 每次自动 append 更新。
 > **路径**：`<project-root>/api-registry.md`（与项目 git 一起 commit）
-> **首次创建**：Phase 4.5 检测到不存在时用本模板初始化
+> **首次创建**：Phase 4 §2 API 检测到不存在时用本模板初始化
 >
 > ⚠️ **本模板使用 A2A 协议作示例数据**（来自 firefly 项目）。PM 按实际项目协议调整：A2A? 列改为项目协议名（如 GraphQL / gRPC / REST），路径示例 `a2a:xxx` 改为项目实际格式。
 
@@ -11,14 +11,14 @@
 ```markdown
 # Firefly API Registry
 
-> 本文件持久化跨多次迭代，每次 Phase 4.5 自动追加更新。
+> 本文件持久化跨多次迭代，每次 Phase 4 §2 API 自动追加更新。
 > 路径：`<project-root>/api-registry.md`（不在 iteration-vault/ 下，因为 vault 每次复位）
 
 ---
 
 ## 维护规则
 
-- 每次 Phase 4.5 末尾自动 append（新增）/ update（修改既有）
+- 每次 Phase 4 §2 API 末尾自动 append（新增）/ update（修改既有）
 - PM 不直接编辑（防冲突），如需手工改先在 issue 里说明
 - 每三个月做一次清理：删 > 6 个月已删除（不是 deprecated）的接口
 - 字段顺序固定，新增字段加在末尾

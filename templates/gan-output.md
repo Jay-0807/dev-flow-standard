@@ -37,8 +37,8 @@ iteration-vault/<phase-id>-gan/
   - `02.5-brainstorm-diverge-gan/`
   - `02.5-brainstorm-converge-gan/`
   - `04-architecture-gan/`
-  - `04.5-api-design-gan/`
-  - `05a-ux-flow-gan/`
+  - `04-architecture-and-api-gan/`
+  - `05-gan/`
   - `06-task-breakdown-gan/`
   - `07-code-task-<task-id>-gan/`  ← Phase 7 每个 task 一个目录
   - `11-release-notes-gan/`
@@ -56,7 +56,7 @@ iteration-vault/<phase-id>-gan/
 task_type: <见 role-router.md>
 round: <1-5>
 generator_version: 1
-phase_id: <如 04.5>
+phase_id: <如 04 或 05>
 -->
 
 # <任务标题>

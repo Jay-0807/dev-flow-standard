@@ -1,7 +1,7 @@
 # API Architect 集成精华
 
 > **来源**：综合 wshobson/agents 风格 + Stripe API Design Guidelines + Google AIP-XXX 系列 + RFC 9457 (Problem Details) + autodev-api 反模式 + 项目协议（如有）。
-> **用法**：Phase 4.5 API 整理阶段（Step 1 & Step 2）、Phase 7 实施 API 任务时 Read。
+> **用法**：Phase 4 §2 API 整理阶段（Step 1 & Step 2）、Phase 7 实施 API 任务时 Read。
 > **项目适配**：默认假设 Next.js API Routes / NestJS + 项目业务协议（如有）（agent ↔ agent）+ Prisma/Drizzle + Postgres + Sentry + OpenTelemetry。
 
 ---
@@ -18,7 +18,7 @@
 
 ---
 
-## 9 项审计清单（每次 Phase 4.5 必跑）
+## 9 项审计清单（每次 Phase 4 §2 API 必跑）
 
 ### 1. REST 资源设计
 
@@ -152,7 +152,7 @@ signature: <租户隔离 + 防篡改>
 
 ---
 
-## 输出格式（嵌入 04.5-api-design.md 的对应段）
+## 输出格式（嵌入 04-architecture-and-api.md 的对应段）
 
 ```markdown
 ## 1. 新 API 设计（如本迭代涉及）
@@ -201,9 +201,9 @@ signature: <租户隔离 + 防篡改>
 
 ## 3. 文档导出
 
-- 3.1 OpenAPI YAML: iteration-vault/04.5-api-spec.yaml
-- 3.2 Postman collection: iteration-vault/04.5-api-postman.json
-- 3.3 API.md (人类可读): iteration-vault/04.5-api.md
+- 3.1 OpenAPI YAML: iteration-vault/04-api-spec.yaml
+- 3.2 Postman collection: iteration-vault/04-api-postman.json
+- 3.3 API.md (人类可读): iteration-vault/04-api.md
 - 3.4 api-registry.md 更新摘要: +N / 改 M / deprecated K
 ```
 

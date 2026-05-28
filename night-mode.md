@@ -27,16 +27,15 @@
 | Phase 2.5 brainstorm 🆕 | — | 🤖 autonomous + GAN |
 | Phase 3 影响面 | 🤖 autonomous | 🤖 autonomous |
 | Phase 4 架构 | 🤖 autonomous + R1 | 🤖 autonomous + GAN + R1 |
-| Phase 4.5 API 整理 🆕 | — | 🤖 autonomous + GAN + R1 子检查 |
-| Phase 5a UX | 🤖 autonomous + GAN | 🤖 autonomous + GAN（autodev-ui task-first）|
-| Phase 5b UI Spec | 🤖 autonomous | 🤖 autonomous（三态强制）|
+| Phase 4 §2 API 整理 🆕 | — | 🤖 autonomous + GAN + R1 子检查 |
+| Phase 5 §1 UX | 🤖 autonomous + GAN | 🤖 autonomous + GAN（autodev-ui task-first）|
+| Phase 5 §2 UI Spec | 🤖 autonomous | 🤖 autonomous（三态强制）|
 | Phase 5.9 文档压缩 🆕 | — | 🤖 autonomous（INDEX + RULES）|
 | Phase 6 任务分解 | 🤖 autonomous | 🤖 autonomous + GAN |
 | Phase 7 实施 | /loop autonomous | /loop autonomous + 每 code task GAN |
 | Phase 8 代码债 | 🤖 autonomous | 🤖 autonomous |
 | Phase 9 三路审查 | 🤖 autonomous | 🤖 autonomous（即 Global GAN，不嵌套）|
 | Phase 10 验收 | 🤖 autonomous + 3 次重试 | 🤖 autonomous + 五层 + 失败自动回退 |
-| Phase 10.5 真人验收 | 🤖 autonomous | 🤖 autonomous |
 | Phase 11 release notes | 🤖 autonomous | 🤖 autonomous + GAN |
 | Phase 11.5 漂移检测 🆕 | — | 🤖 autonomous（ERROR 级阻塞 12）|
 | Phase 12 git release | 🤖 autonomous | 🤖 autonomous |
@@ -78,7 +77,7 @@ Phase 6 任务分解完成时估算总跑时：
 
 | 红线编号 | 触发条件 | 处理 |
 |---|---|---|
-| 🚨 R1 重大架构冲突 | 选型导致 vendor lock-in / 重构现有核心模块 / 引入与 项目协议（如有）冲突的库 / **Phase 4.5 存量审计发现 ≥ 5 个接口违反 项目业务协议（如有）** / **新 API 设计无法兼容 项目消息信封（如有）** / **必须 breaking change 既有公开接口** | 暂停 → 写决策报告 → 等 PM 显式决策 |
+| 🚨 R1 重大架构冲突 | 选型导致 vendor lock-in / 重构现有核心模块 / 引入与 项目协议（如有）冲突的库 / **Phase 4 §2 API 存量审计发现 ≥ 5 个接口违反 项目业务协议（如有）** / **新 API 设计无法兼容 项目消息信封（如有）** / **必须 breaking change 既有公开接口** | 暂停 → 写决策报告 → 等 PM 显式决策 |
 | 🚨 R2 安全 must-fix > 3 项 | Phase 9 安全审查发现 ≥ 3 项阻塞发布的 must-fix 问题 | 暂停 → 列安全报告 → 等 PM 决定是否降级范围 |
 | 🚨 R3 验收 3 次重试仍挂 | Phase 10 五层验收失败，回 Phase 7 修，重试 3 次仍未通过 | 暂停 → 列失败模式分析 → 等 PM 决策（缩范围 / 改方案 / 推迟）|
 | 🚨 R4 删除既有功能 | 实施过程中发现必须删除某既有功能才能完成本次需求 | 暂停 → 列删除项 + 影响面 → 等 PM 明确同意 |

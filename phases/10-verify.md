@@ -33,7 +33,7 @@
 - `iteration-vault/RULES.md`（来自 Phase 5.9 压缩 — 含 7 Quality Redlines）
 - `iteration-vault/06-task-breakdown.md`（含 acceptance_criteria）
 - `iteration-vault/02-PRD.md` 的 AC
-- `iteration-vault/04.5-api-spec.yaml`（contract test 用）
+- `iteration-vault/04-api-spec.yaml`（contract test 用）
 - `iteration-vault/04-architecture.md` 的契约定义
 - `iteration-vault/09-review-reports/summary.md`（确保 must-fix 已修）
 - `integrations/test-planner.md`（测试策略层）
@@ -51,7 +51,7 @@
 
 **检查项**：
 - 每个 `06-task-breakdown.md` 任务的 `acceptance_criteria` 逐条
-- API 入参出参符合 `04.5-api-spec.yaml`
+- API 入参出参符合 `04-api-spec.yaml`
 - DB schema 与实际 migration 一致
 
 **输出**: 违规清单（含 `L1-XXX` 编号）
@@ -91,7 +91,7 @@
 **调用**: `/autodev-verify --layer runtime`
 
 **检查项**：
-- API 真发请求（用 Postman collection from 04.5）+ 响应 schema 校验
+- API 真发请求（用 Postman collection from Phase 4 §2 API 整理）+ 响应 schema 校验
 - Playwright 测每个新 UI 页面：能 render + 关键交互能点 + 状态切换正确（loading/empty/error/success 三态实际渲染）
 - 用户旅程连续性测：从 05a 用户旅程图自动跑，确保跳转无 404 / 死链
 - 数据库 transaction 完整性测
@@ -137,7 +137,7 @@ L5-001: PRD AC #4 "下单后立即扣库存" — 集成测试失败
 
 ## Quick mode（v4 新增）
 
-中间 phase（Phase 5b / 6 / 7 间隔）可用 quick mode 只跑 L1-L3（轻量），Phase 10 跑 L1-L5（全量）。
+中间 phase（Phase 5 §2 UI Spec / 6 / 7 间隔）可用 quick mode 只跑 L1-L3（轻量），Phase 10 跑 L1-L5（全量）。
 
 ```
 /autodev-verify --quick           # L1-L3 only
@@ -204,7 +204,7 @@ Phase 10 五层验收完成（第 [N] 次跑）:
 **上游**：所有 Phase 2-9 输出
 
 **下游**：
-- L5 PASS → Phase 10.5 真人用户验收
+- L5 PASS → 流程继续到 Phase 11 发布说明（v5 已删除原 Phase 10.5，真人验收角色由 ⛳ 早晨复盘覆盖）
 - 任意层 FAIL + 3 次重试不过 → R3 红线 → PM
 
 ---

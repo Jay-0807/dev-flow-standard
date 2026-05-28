@@ -53,14 +53,14 @@
 - 行动：✅ 已更新 `04-architecture.md §4` 技术栈段
 
 ### I-002: 新增 endpoint
-- 文件：`04.5-api-spec.yaml`
+- 文件：`04-api-spec.yaml`
 - 详情：新增 `POST /api/v1/users/:id/preferences`（不影响既有）
 - 行动：✅ 已追加到 `api-registry.md`
 
 ### I-003: 新增页面
 - 文件：`app/orders/[id]/preferences/`
 - 详情：新增个人偏好页面
-- 行动：✅ 已追加到 `05a-ux-design.md §3 用户旅程`
+- 行动：✅ 已追加到 `05-interface-design.md §3 用户旅程`
 
 ---
 
@@ -84,7 +84,7 @@
 
 ### E-001: 删除已发布 endpoint
 - 文件：missing in code
-- 详情：`GET /api/v1/legacy/users` 在 04.5-api-spec.yaml 中标 active，但代码已删
+- 详情：`GET /api/v1/legacy/users` 在 04-api-spec.yaml 中标 active，但代码已删
 - 影响：**老调用方会 404**
 - 行动：🚨 触发 R4 红线 → 写 `ESCALATION-R4-drift.md`
 
@@ -110,9 +110,9 @@
 
 本次自动改动的设计文档：
 - `04-architecture.md §4 技术栈`: react 18.2.1
-- `04.5-api-design.md §2.6 废弃流水`: 加 1 行
+- `04-architecture-and-api.md §2.6 废弃流水`: 加 1 行
 - `api-registry.md`: 追加 1 endpoint
-- `05a-ux-design.md §3 用户旅程`: 补充 preferences 页面
+- `05-interface-design.md §3 用户旅程`: 补充 preferences 页面
 
 PM 可 git diff 看具体改动。
 
@@ -127,7 +127,7 @@ PM 可 git diff 看具体改动。
 - 写 `iteration-vault/ESCALATION-R4-drift.md`
 - 暂停后续，等 PM 决策（R4 红线流程）：
   - 修：回 Phase 7 把 deleted endpoint 加回
-  - 删：PM 明确同意删除 → 改 04.5-api-spec.yaml + 通知所有调用方
+  - 删：PM 明确同意删除 → 改 04-api-spec.yaml + 通知所有调用方
   - 推迟：本轮不发版
 
 ---

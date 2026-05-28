@@ -23,9 +23,9 @@
   - Phase 2.5 brainstorm
   - Phase 3 影响面
   - Phase 4 架构
-  - Phase 4.5 API 整理
-  - Phase 5a UX
-  - Phase 5b UI Spec
+  - Phase 4 §2 API 整理
+  - Phase 5 §1 UX
+  - Phase 5 §2 UI Spec
   - Phase 5.9 文档压缩
   - Phase 6 任务分解
 - **启动时间**: <YYYY-MM-DD HH:mm>
@@ -51,7 +51,6 @@
 - **Phase 范围**: 9-12
   - Phase 9 三路审查
   - Phase 10 五层验收
-  - Phase 10.5 真人用户验收
   - Phase 11 发布说明
   - Phase 11.5 漂移检测
   - Phase 12 git release

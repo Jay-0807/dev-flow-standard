@@ -33,7 +33,7 @@
 | 编号 | 位置 | 描述 | 关联 PRD AC |
 |---|---|---|---|
 | L1-001 | 06-task-breakdown.md #5 | acceptance_criteria #3 未满足: "用户登录后看到上次保存的草稿" | PRD §6 AC #3 |
-| L1-002 | 04.5-api-spec.yaml + impl | GET /users/:id 返回 schema 缺 confidence 字段 | PRD §7.3 r4 第 3 维 |
+| L1-002 | 04-api-spec.yaml + impl | GET /users/:id 返回 schema 缺 confidence 字段 | PRD §7.3 r4 第 3 维 |
 
 ---
 
@@ -170,7 +170,7 @@ PM 在 Phase 12.5 早晨复盘可逐条查违规 + RULES 来源。
 
 ### L2-R2-001 修复
 - 删除 src/lib/llm/pricing.ts:18 的 mockLLMResponse
-- 接入真 LLM API（按 04.5-api-design.md §1.2.X）
+- 接入真 LLM API（按 04-architecture-and-api.md §1.2.X）
 
 [每条违规给具体修复指引]
 

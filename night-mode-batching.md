@@ -34,9 +34,9 @@ Phase 2 PRD ⛳
 │  Phase 2.5 brainstorm                 │
 │  Phase 3 影响面                       │
 │  Phase 4 架构                        │
-│  Phase 4.5 API 整理                  │
-│  Phase 5a UX 设计                    │
-│  Phase 5b UI Spec                    │
+│  Phase 4 §2 API 整理                  │
+│  Phase 5 §1 UX 设计                    │
+│  Phase 5 §2 UI Spec                    │
 │  Phase 5.9 文档压缩                  │
 │  Phase 6 任务分解                    │
 └──────────────────────────────────────┘
@@ -53,7 +53,6 @@ Phase 2 PRD ⛳
 │  Batch 3（审查发布批，~2-4h）         │
 │  Phase 9 三路审查                    │
 │  Phase 10 五层验收                   │
-│  Phase 10.5 真人用户验收             │
 │  Phase 11 发布说明                   │
 │  Phase 11.5 漂移检测                 │
 │  Phase 12 git release                │
@@ -143,9 +142,9 @@ PM 可选：
    ├─ Phase 2.5 brainstorm        [Batch 2 启动 7-8]                    [vault 归档到 history/]
    ├─ Phase 3 影响面                  ├─ Phase 7 实施 /loop
    ├─ Phase 4 架构                    └─ Phase 8 代码债
-   ├─ Phase 4.5 API                   │
-   ├─ Phase 5a UX                     ▼
-   ├─ Phase 5b UI                  [Batch 2 完成]
+   ├─ Phase 4 §2 API                   │
+   ├─ Phase 5 §1 UX                     ▼
+   ├─ Phase 5 §2 UI Spec                  [Batch 2 完成]
    ├─ Phase 5.9 压缩                  │
    └─ Phase 6 任务                    写 batch-2-summary.md
    │                                  ⏸ skill 暂停
@@ -156,7 +155,6 @@ PM 可选：
    │                                                                  [Batch 3 启动 9-12]
 [等到 PM 上班回话]                                                       ├─ Phase 9 审查
                                                                           ├─ Phase 10 五层
-                                                                          ├─ Phase 10.5 真人
                                                                           ├─ Phase 11 发布
                                                                           ├─ Phase 11.5 漂移
                                                                           └─ Phase 12 git
@@ -196,9 +194,8 @@ Batch 1 → Batch 2 之间 PM 可以做：
 - iteration-vault/02.5-brainstorm-converge.md ✅
 - iteration-vault/03-impact-analysis.md ✅
 - iteration-vault/04-architecture.md ✅
-- iteration-vault/04.5-api-design.md ✅
-- iteration-vault/05a-ux-design.md ✅
-- iteration-vault/05b-ui-spec.md ✅
+- iteration-vault/04-architecture-and-api.md ✅
+- iteration-vault/05-interface-design.md ✅
 - iteration-vault/INDEX.md ✅
 - iteration-vault/RULES.md ✅
 - iteration-vault/06-task-breakdown.md ✅
@@ -228,7 +225,7 @@ Batch 1 → Batch 2 之间 PM 可以做：
 ### 跨批级联失败
 
 ```
-Batch 2 跑到一半发现 batch 1 的 Phase 5b UI Spec 写错了
+Batch 2 跑到一半发现 batch 1 的 Phase 5 §2 UI Spec 写错了
    ↓
 处理：
 1. batch 2 自动暂停（不触发 R 红线，因为不是严重失败）

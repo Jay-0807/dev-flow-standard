@@ -51,7 +51,7 @@
 | autodev `/autodev-ideation` | 2 | PRD 起草 |
 | autodev `/autodev-iterate` | 7 | Phase 7 实施每 code task |
 | autodev `/autodev-ui` | 5a/5b | 前端页面密集 |
-| autodev `/autodev-api` | 4.5 | Phase 4.5 API 设计 |
+| autodev `/autodev-api` | 4.5 | Phase 4 §2 API 设计 |
 | autodev `/autodev-verify` | 10 | Phase 10 五层验收 |
 | autodev `/autodev-review` | 9 | Phase 9 三路审查 |
 | release-please | 12 | 默认发版工具 |

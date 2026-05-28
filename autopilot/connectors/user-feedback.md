@@ -1,13 +1,13 @@
 # Connector: user-feedback
 
-> **作用**：W2 加。从 `iteration-vault/history/*/10.5-user-acceptance.md` 抓"用户最痛"反复出现的项作为候选。
+> **作用**：W2 加。从 `iteration-vault/history/*/12.5-morning-review.md` 抓"用户最痛"反复出现的项作为候选。
 > **weight**：1.5
 
 ---
 
 ## 数据源
 
-`iteration-vault/history/*/10.5-user-acceptance.md` 文件们。
+`iteration-vault/history/*/12.5-morning-review.md` 文件们。
 
 每个 10.5 报告含：
 - 最爱
@@ -78,7 +78,7 @@ connectors:
   user-feedback:
     enabled: true
     weight: 1.5
-    source: "iteration-vault/history/*/10.5-user-acceptance.md"
+    source: "iteration-vault/history/*/12.5-morning-review.md"
     min_repeat_count: 2          # 至少 2 次重复才算
     normalization:
       method: "keyword"          # keyword / embedding
@@ -94,7 +94,7 @@ connectors:
 ```yaml
 - id: feedback-7d4e9a3c
   source: user-feedback
-  source_ref: "iteration-vault/history/2026-04-12-pricing/10.5-user-acceptance.md#L42"
+  source_ref: "iteration-vault/history/2026-04-12-pricing/12.5-morning-review.md#L42"
   title: "定价计算页加载慢"
   description: "用户反复反馈定价页慢，4 次迭代里 4 个用户提到，最近一次评分 2.8/5"
   raw_evidence: |

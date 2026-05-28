@@ -71,7 +71,7 @@
 
 ```yaml
 - task_type: api-design
-  trigger_keywords: ["API 设计", "Phase 4.5", "OpenAPI", "REST 契约", "GraphQL 契约", "gRPC 契约"]
+  trigger_keywords: ["API 设计", "Phase 4 §2 API", "OpenAPI", "REST 契约", "GraphQL 契约", "gRPC 契约"]
   4_dimensions:
     - 资源建模    # REST/GraphQL/RPC 资源粒度对不对
     - 错误处理    # 错误码全 + RFC 9457
@@ -90,7 +90,7 @@
 
 ```yaml
 - task_type: ux-flow
-  trigger_keywords: ["UX 设计", "Phase 5a", "用户流程"]
+  trigger_keywords: ["UX 设计", "Phase 5 §1 UX", "用户流程"]
   4_dimensions:
     - 视觉层级    # 信息密度 + 主次区分
     - 交互流畅    # 用户路径无跳跃
@@ -219,7 +219,7 @@
 
 GAN 引擎接到 phase 的调用时，先按 trigger_keywords 匹配；匹配多个时取**最具体**那个。
 
-例：调用提到"Phase 4.5 API 设计" → 匹配 `api-design`（更具体），不匹配 `architecture-design`。
+例：调用提到"Phase 4 §2 API 设计" → 匹配 `api-design`（更具体），不匹配 `architecture-design`。
 
 匹配失败时 fallback 到通用 `prd-writing` 配置 + 在 trace.md 标 `task_type_unmatched`。
 

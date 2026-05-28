@@ -52,7 +52,7 @@ PM 或开发者提出代码需求时，走完"想法 → PRD → 架构 → 设�
 2. **文档先于代码** — 每个关卡先在 `iteration-vault/` 落地 .md 文档。**v4 新增**：Phase 5.9 把厚设计文档压缩成 INDEX + RULES（"地图不是摘要"），实施 phase 强制读这两份不读全量。
 3. **本机优先 + 外部融合** — 优先用本机已装 skill（superpowers/autodev/角色 agent）；本机空白处用 `integrations/` 内化精华。**v4 新增**：integrations/gan-engine.md（对抗式生成）+ integrations/api-architect.md（API 9 维审计）。
 4. **项目类型敏感** — 启动时主动检测项目类型（Web 全栈 / B 端 SaaS / AI 原生），按类型注入不同默认（详见 `reference/project-type-router.md`）。
-5. **用户视角友好** — Phase 1.5 用户研究证据 / Phase 5a UX 必经 / Phase 10.5 真人用户验收 / Phase 12.5 早晨结构化复盘（4 步清单 + 4 选项）。**技术验收通过 ≠ 用户验收通过**。
+5. **用户视角友好** — Phase 1.5 用户研究证据 / Phase 5 §1 UX 必经 / Phase 12.5 ⛳ 早晨复盘覆盖真人用户验收角色（4 步结构化清单 + 4 选项）。**技术验收通过 ≠ 用户验收通过**。
 
 ---
 
@@ -85,96 +85,85 @@ Autopilot（AI 主动捡需求开始跑）是**另一条入口**（cron tick 触
 > **v5 vs v4 关键变化**：删 Phase 10.5 真人验收 / 合并 0+1 / 合并 4+4.5 / 合并 5a+5b / 删 PRD 关卡批数跟进问。
 
 ```
-PHASE 0  需求接收 & 大小分级
-   │  + 项目类型路由（Web/SaaS/AI 三选一）
-   ▼  💬 PM 在线
-PHASE 1  需求澄清 & 反问
+PHASE 1   💬 需求澄清（含原 Phase 0 接收 + 大小分级 + 项目类型路由）
    │  调用：superpowers:brainstorming + product-sprint-prioritizer
    │  产出：iteration-vault/01-clarified-requirement.md
    ▼  💬 PM 在线
-PHASE 1.5  用户研究
+PHASE 1.5 👥 用户研究
    │  产出：iteration-vault/01.5-user-research.md（3 画像 + 痛点 + 旅程）
    ▼  💬 PM 在线
-PHASE 2  PRD 撰写 ⛳ 关卡 1（PM 必参与，GAN 引擎）
+PHASE 2   📝 PRD 撰写 ⛳ 关卡 1（PM 必参与，GAN 引擎）
    │  调用：/autodev-ideation + product-sprint-prioritizer + docx + GAN
    │  产出：iteration-vault/02-PRD.md + 02-prd-gan/
    ▼  ⛳ PM 三选项 → 自动启动夜间模式（不再问批数，Phase 6 自动估算）
 ═══════════════════════════════════════════════════════════════
 🌙 夜间模式区（Phase 2.5-12，PM 离场，仅 4 红线 escalate；可分批）
 ═══════════════════════════════════════════════════════════════
-PHASE 2.5 🆕 方案发散评估（学 autodev-brainstorm）
+PHASE 2.5 💡 方案发散（学 autodev-brainstorm）
    │  GAN：DIVERGE 3-5 方案 → EVALUATE 4 维 → CONVERGE 选最优
    │  产出：iteration-vault/02.5-brainstorm-{diverge,converge}.md
    ▼
-PHASE 3  影响面分析 + ADR
+PHASE 3   📐 影响面分析 + ADR
    │  调用：engineering-codebase-onboarding-engineer + adr-skill
    │  产出：iteration-vault/03-impact-analysis.md + 03-adr.md
    ▼
-PHASE 4  架构设计（GAN）
-   │  调用：superpowers:writing-plans + integrations/database-architect + GAN
-   │  产出：iteration-vault/04-architecture.md + 04-architecture-gan/
-   ▼  🚨 R1 检查
-PHASE 4.5 🆕 API 整理（UI 反推 API + 存量审计 + 文档导出）
-   │  调用：integrations/api-architect + /autodev-api + GAN
-   │  产出：iteration-vault/04.5-api-design.md + 04.5-api-spec.yaml + 04.5-api-postman.json + 04.5-api.md
+PHASE 4   🏗️ 架构与接口设计（含原 4.5 API 整理，GAN）
+   │  内部两步：§1 大架构蓝图 / §2 API 整理 + 注册表
+   │  调用：writing-plans + database-architect + api-architect + /autodev-api + GAN
+   │  产出：iteration-vault/04-architecture-and-api.md + 04-api-spec.yaml + 04-api-postman.json + 04-api.md
    │       + 持久化追加 <project-root>/api-registry.md
-   ▼  🚨 R1 子检查
-PHASE 5a  UX 设计（GAN，task-first 信息架构）
-   │  调用：Figma MCP + Nielsen 10 + GAN
-   │  产出：iteration-vault/05a-ux-design.md + 05a-wireframes/ + 05a-gan/
+   ▼  🚨 R1 检查（含 API 子检查）
+PHASE 5   🎨 界面设计（含原 5a UX + 5b UI Spec，GAN）
+   │  内部两步：§1 UX 用户视角 wireframe / §2 UI 工程视角技术 spec（含空/错/loading 三态强制）
+   │  调用：Figma MCP + Nielsen 10 + /autodev-ui + GAN
+   │  产出：iteration-vault/05-interface-design.md + 05-wireframes/ + 05-gan/
    ▼
-PHASE 5b  UI 技术 Spec（含空/错/loading 三态强制）
-   │  调用：/autodev-ui
-   │  产出：iteration-vault/05b-ui-spec.md
-   ▼
-PHASE 5.9 🆕 文档压缩（"地图不是摘要"）
+PHASE 5.9 📚 设计压缩成开发地图（"地图不是摘要"）
    │  产出：iteration-vault/INDEX.md (<100 行) + RULES.md (<80 行)
    │  Phase 6+ 强制读这两份，不读全量
    ▼
-PHASE 6  任务分解 & sprint 排期（GAN）
+PHASE 6   📋 任务拆解 + sprint 排期（GAN + 自动估算工时）
    │  调用：superpowers:writing-plans + product-sprint-prioritizer + GAN
    │  产出：iteration-vault/06-task-breakdown.md
+   │  < 8h 单批跑 / ≥ 8h 主动提示是否分批
    ▼
-PHASE 7  并行实施（所有 code task 跑 GAN，UI task 加 UI Add-on）
+PHASE 7   ⌨️ 代码实施（三路 worktree 并行 + 每 code task 跑 GAN）
    │  调用：subagent-driven-development + /autodev-iterate + GAN（per task）
    │  产出：iteration-vault/07-implementation-log.md + 07-code-task-*-gan/
    ▼  🚨 R4 检查
-PHASE 8  代码债扫描
+PHASE 8   🧹 代码债扫描
    │  调用：simplify + integrations/tech-debt-9d
    │  产出：iteration-vault/08-tech-debt-audit.md
    ▼
-PHASE 9  三路并行审查（即 Global GAN）
+PHASE 9   🔍 多路审查（即 Global GAN）
    │  并行：code-reviewer / /autodev-review / /security-review + OWASP LLM 2025
    │  产出：iteration-vault/09-review-reports/{self,adversarial,security}.md
    ▼  🚨 R2 检查
-PHASE 10 🔄 五层验收（学 autodev-verify，最多 3 次重试 + 自动回退）
+PHASE 10  🛡️ 上线前质量检查（五层验收，最多 3 次重试 + 自动回退）
    │  L1 契约 / L2 红线编号 / L3 静态 / L4 运行时 / L5 acceptance
    │  调用：/autodev-verify + test-driven-development + acceptance-testing
    │  产出：iteration-vault/10-verification-report.md + 10-verification-redlines.md
    ▼  🚨 R3 检查
-PHASE 10.5 真人用户验收（3-5 真实用户 + Playwright 基线）
-   │  调用：Playwright MCP + 真人邀请
-   │  产出：iteration-vault/10.5-user-acceptance.md + tests/user-acceptance/*
-   ▼
-PHASE 11 发布说明（GAN）
+PHASE 11  📢 发布说明（GAN）
    │  调用：finishing-a-development-branch + docx + GAN
    │  产出：iteration-vault/11-release-notes.md + 11-release-gan/
    ▼
-PHASE 11.5 🆕 漂移检测（5 维度 + 三级警报，ERROR 阻塞 12）
+PHASE 11.5 🔄 文档代码漂移检测（5 维度 + 三级警报，ERROR 阻塞 12）
    │  产出：iteration-vault/11.5-sync-report.md
    ▼
-PHASE 12 版本管理 + git/GitHub release
+PHASE 12  🚀 git 发版
    │  调用：integrations/git-workflow + release-please + gh CLI
    │  产出：iteration-vault/12-release.md + Release PR URL
    ▼  🌅 写"递交摘要" + state.yaml mode=morning-review-pending
 ═══════════════════════════════════════════════════════════════
-PHASE 12.5 🆕 早晨复盘 ⛳ 关卡 2（PM 必参与）
+PHASE 12.5 ☀️ 早晨复盘 ⛳ 关卡 2（PM 必参与）
+   │  Step 1 必先 5 分钟扫 RUN-LOG.md（业务名时间轴）
    │  4 步结构化清单 + 4 选项（✅merge / 🔄局部 redo / ❌整体重做 / ⏸推下夜）
    │  产出：iteration-vault/12.5-morning-review.md
    ▼
 [完成]  PM 走 12.5 4 选项 → autopilot 回流（Phase 13）+ vault 归档 history/
 
-PHASE 13 🆕 autopilot handoff（仅 autopilot-triggered 迭代）
+PHASE 13 🤖 autopilot 回流（仅 autopilot-triggered 迭代）
    │  写 ~/.autopilot/run-history.jsonl + state.json update
    │  产出：iteration-vault/13-autopilot-handoff.md（仅 autopilot 触发时）
 ```
@@ -185,7 +174,7 @@ PHASE 13 🆕 autopilot handoff（仅 autopilot-triggered 迭代）
 
 | 模块 | 内容 | 位置 |
 |---|---|---|
-| **模块 1** API 整理 | UI 反推 API + 存量审计 + 文档导出 + 跨迭代注册表（REST/GraphQL/RPC 项目类型敏感）| Phase 4.5 |
+| **模块 1** API 整理 | UI 反推 API + 存量审计 + 文档导出 + 跨迭代注册表（REST/GraphQL/RPC 项目类型敏感）| Phase 4 §2 API 整理 子步骤 |
 | **模块 2** 夜间模式 v2 | A 重命名 + B 早晨复盘 + C 决策回放 + D 跨夜分批 | `night-mode.md` + Phase 12.5 + `decision-replay.md` + `night-mode-batching.md` |
 | **模块 3** Autopilot W1-W4 | 5 connector（roadmap + user-feedback + GitHub + 通用 error-log + Notion）+ 6 安全闸 + 状态机 + Tier 切换 | `autopilot/` 整目录 |
 | **模块 4** GAN 引擎 | 1 gen + 1 怀疑 reviewer + 4 维 + 7 redlines + PIVOT | `integrations/gan-engine.md` + `gan-engine/` |
@@ -259,17 +248,15 @@ PHASE 13 🆕 autopilot handoff（仅 autopilot-triggered 迭代）
 ├── 02.5-brainstorm-diverge.md + 02.5-brainstorm-converge.md + GAN 目录
 ├── autonomous-decisions.md            # 持续追加
 ├── 03-impact-analysis.md + 03-adr.md
-├── 04-architecture.md + 04-architecture-gan/
-├── 04.5-api-design.md + 04.5-api-spec.yaml + 04.5-api-postman.json + 04.5-api.md
-├── 05a-ux-design.md + 05a-wireframes/ + 05a-gan/
-├── 05b-ui-spec.md
+├── 04-architecture-and-api.md + 04-architecture-and-api-gan/    # 含 §1 大架构 + §2 API 整理（原 4 + 4.5 合并）
+├── 04-api-spec.yaml + 04-api-postman.json + 04-api.md          # API 衍生（机器消费 + QA 测试 + 人类可读）
+├── 05-interface-design.md + 05-wireframes/ + 05-gan/           # 含 §1 UX + §2 UI Spec（原 5a + 5b 合并）
 ├── INDEX.md (<100 行) + RULES.md (<80 行)
 ├── 06-task-breakdown.md + 06-task-breakdown-gan/
 ├── 07-code-task-<id>-gan/             # 每个 code task 一个 GAN 目录
 ├── 08-tech-debt-audit.md
 ├── 09-review-reports/{self,adversarial,security}.md
 ├── 10-verification-report.md + 10-verification-redlines.md
-├── 10.5-user-acceptance.md + 10.5-baseline-screenshots/
 ├── 11-release-notes.md + 11-release-gan/
 ├── 11.5-sync-report.md
 ├── 12-release.md
@@ -284,36 +271,33 @@ PHASE 13 🆕 autopilot handoff（仅 autopilot-triggered 迭代）
 **short-title** 从用户原 prompt 提取（如 "加个 AI 选品助手" → `ai-product-picker`）。
 
 **跨迭代持久化**：
-- `<project-root>/api-registry.md`（Phase 4.5 跨迭代追加）
+- `<project-root>/api-registry.md`（Phase 4 §2 API 整理 跨迭代追加）
 - `~/.autopilot/*`（autopilot 运行时配置 + 状态）
 
 ---
 
 ## 详细 phase 入口
 
-| Phase | 入口文件 | 模式 |
-|---|---|---|
-| 0-1 接收 & 澄清 | `phases/01-clarify.md` | 💬 PM 在线 |
-| 1.5 用户研究 | `phases/01.5-user-research.md` | 💬 PM 在线 |
-| 2 PRD ⛳ 关卡 1 | `phases/02-prd.md` | ⛳ **PM 关卡 1** + GAN |
-| 2.5 brainstorm | `phases/02.5-brainstorm.md` | 🌙 夜间 + GAN |
-| 3 影响面 + ADR | `phases/03-impact.md` | 🌙 夜间 |
-| 4 架构 | `phases/04-architecture.md` | 🌙 夜间 + GAN + 🚨 R1 |
-| 4.5 API 整理 | `phases/04.5-api-design.md` | 🌙 夜间 + GAN + 🚨 R1 子检查 |
-| 5a UX 设计 | `phases/05a-ux-flow.md` | 🌙 夜间 + GAN |
-| 5b UI Spec | `phases/05b-ui-spec.md` | 🌙 夜间 |
-| 5.9 文档压缩 | `phases/05.9-compress.md` | 🌙 夜间 |
-| 6 任务分解 | `phases/06-tasks.md` | 🌙 夜间 + GAN |
-| 7 并行实施 | `phases/07-implement.md` | 🌙 + `/loop` + 每 code task GAN + 🚨 R4 |
-| 8 代码债 | `phases/08-tech-debt.md` | 🌙 夜间 |
-| 9 三路审查 | `phases/09-review.md` | 🌙 夜间（即 Global GAN）+ 🚨 R2 |
-| 10 五层验收 | `phases/10-verify.md` | 🌙 夜间 + 🚨 R3（3 次重试上限）|
-| 10.5 真人验收 | `phases/10.5-user-acceptance.md` | 🌙 夜间 |
-| 11 release notes | `phases/11-release.md` | 🌙 夜间 + GAN |
-| 11.5 漂移检测 | `phases/11.5-sync.md` | 🌙 夜间（5 维度，ERROR 触 R4）|
-| 12 git/GitHub release | `phases/12-version-git.md` | 🌙 夜间 + 🌅 递交摘要 |
-| 12.5 早晨复盘 | `phases/12.5-morning-review.md` | ⛳ **PM 关卡 2** |
-| 13 autopilot handoff | `phases/13-autopilot-handoff.md` | 🌙（仅 autopilot 触发时）|
+| 业务名 | 内部编号 | 入口文件 | 模式 |
+|---|---|---|---|
+| 💬 需求澄清（含原 Phase 0 接收）| 1 | `phases/01-clarify.md` | 💬 PM 在线 |
+| 👥 用户研究 | 1.5 | `phases/01.5-user-research.md` | 💬 PM 在线 |
+| 📝 PRD 撰写 ⛳ 关卡 1 | 2 | `phases/02-prd.md` | ⛳ **PM 关卡 1** + GAN |
+| 💡 方案发散 | 2.5 | `phases/02.5-brainstorm.md` | 🌙 夜间 + GAN |
+| 📐 影响面分析 + ADR | 3 | `phases/03-impact.md` | 🌙 夜间 |
+| 🏗️ 架构与接口设计（含原 4.5 API 整理）| 4 | `phases/04-architecture-and-api.md` | 🌙 夜间 + GAN + 🚨 R1（含 API 子检查）|
+| 🎨 界面设计（含原 5a UX + 5b UI Spec）| 5 | `phases/05-interface-design.md` | 🌙 夜间 + GAN |
+| 📚 设计压缩成开发地图 | 5.9 | `phases/05.9-compress.md` | 🌙 夜间 |
+| 📋 任务拆解 | 6 | `phases/06-tasks.md` | 🌙 夜间 + GAN |
+| ⌨️ 代码实施 | 7 | `phases/07-implement.md` | 🌙 + `/loop` + 每 code task GAN + 🚨 R4 |
+| 🧹 代码债扫描 | 8 | `phases/08-tech-debt.md` | 🌙 夜间 |
+| 🔍 多路审查 | 9 | `phases/09-review.md` | 🌙 夜间（即 Global GAN）+ 🚨 R2 |
+| 🛡️ 上线前质量检查 | 10 | `phases/10-verify.md` | 🌙 夜间 + 🚨 R3（3 次重试上限）|
+| 📢 发布说明 | 11 | `phases/11-release.md` | 🌙 夜间 + GAN |
+| 🔄 文档代码漂移检测 | 11.5 | `phases/11.5-sync.md` | 🌙 夜间（5 维度，ERROR 触 R4）|
+| 🚀 git 发版 | 12 | `phases/12-version-git.md` | 🌙 夜间 + 🌅 递交摘要 |
+| ☀️ 早晨复盘 ⛳ 关卡 2 | 12.5 | `phases/12.5-morning-review.md` | ⛳ **PM 关卡 2** |
+| 🤖 autopilot 回流 | 13 | `phases/13-autopilot-handoff.md` | 🌙（仅 autopilot 触发时）|
 
 每个 phase 文件包含：本阶段目标、输入、调用哪些子 skill、产出文件、autonomous 决策规则、escalation 触发条件、失败回退、GAN 钩子（如有）。
 
@@ -332,15 +316,15 @@ PHASE 13 🆕 autopilot handoff（仅 autopilot-triggered 迭代）
 - /autodev-* — 多 phase 调用（ideation / api / ui / iterate / review / verify）
 
 **调度的 MCP**（详见 `reference/tool-inventory.md`）：
-- Figma MCP — Phase 5a/5b
-- Playwright MCP — Phase 10/10.5
+- Figma MCP — Phase 5 §1 UX + §2 UI Spec
+- Playwright MCP — Phase 10 §L4 运行时
 - Sentry MCP — Phase 8 / autopilot connector
 - Notion MCP — Phase 1.5 / autopilot connector
 - GitHub MCP / gh CLI — Phase 12
 
 **项目类型特殊路由**（详见 `reference/project-type-router.md`）：
-- **Web 全栈**：Phase 5a/5b 强制（Figma MCP），Phase 4.5 偏 REST
-- **B 端 SaaS**：Phase 4.5 偏 REST + GraphQL，Phase 10.5 真人验收强制
+- **Web 全栈**：Phase 5 强制（Figma MCP），Phase 4 §2 API 偏 REST
+- **B 端 SaaS**：Phase 4 §2 API 偏 REST + GraphQL，⛳ 早晨复盘真人用户视角强制
 - **AI 原生应用**：Phase 7 加 Promptfoo prompt 测评 + Garak/PyRIT 红队；Phase 8 加 Langfuse 监控
 
 ---
