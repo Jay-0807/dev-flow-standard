@@ -60,9 +60,14 @@
 - 测试文件（`*.test.ts` / `*.spec.ts`）内允许
 - Storybook stories 内允许
 - 显式开发用 mock 服务（如 `msw` 配置文件）允许
+- **HTML/JSX `placeholder` 属性是 HTML 标准 attribute，非 mock 数据**（如 `<input placeholder="例如：100" />`、`<textarea placeholder={...}>`、`<Field placeholder="..." />`）
+- **TypeScript 字段/枚举值为 `placeholder` 作为合法语义来源标签**（如 `labelSource: 'placeholder'`、`field.constraints.placeholder`、`PlaceholderEnum.X`）— 这是"用 placeholder 文字推断 label"的合法元数据
+- CSS 选择器 `::placeholder` 是 CSS 标准伪元素
+- 文档/i18n key 名为 `placeholder_text` 之类的合法 key
 
 **reviewer 检查方法**：
-- grep `mock|dummy|fake` × 文件不在测试目录 → 报告
+- grep `mock|dummy|fake` 必须**作为变量名 / 函数名前缀或独立 identifier** 出现（如 `mockUserData` / `getFakeOrders()` / `dummyResponse`）才算违规
+- ⚠️ **不要单独 grep `placeholder` 字符串**：HTML/JSX/CSS 大量合法使用，会产生 30+ 误报。仅当变量名为 `placeholderXxx` 且非 input 相关上下文时才标违规
 - 检查 fetch / axios 调用点是否真发请求
 
 **违规处置**：该维度（通常是"鲁棒性"或"完整性"）自动 ≤ 3 分 + `R2-XXX`
@@ -80,10 +85,27 @@
 **autodev 原话**：
 > "Enforces alignment between codebase libraries and design.md specifications; blocks plans containing 'for now/暂时/先用/workaround' language."
 
+**例外**（区分"偷工" vs "记录真实技术现实"）：
+- **注释中描述真实技术 workaround**（非偷工，是不可避免的技术现实）：
+  - 含明确的"why"解释（如 `* The canonical workaround for React's controlled input is...`）
+  - 含外部引用（issue # / RFC / MDN link / 浏览器 bug ID）
+  - 工程师从注释能看出"这不是偷懒，是必要妥协"
+  - 例：`// We deliberately don't call /v1/models — that would require...`
+- **user-facing 文案描述外部系统暂时性行为**（非代码偷工，是给用户的解释）：
+  - 在 JSX text node / i18n value / toast / dialog message 内
+  - 描述第三方系统（Chrome、OS、第三方 API）的暂时性限制或重试场景
+  - 例：`<p>Chrome 重启了后台 worker，加密的 API key 暂时不能访问</p>`
+- 函数 / 变量名含 `workaround` 但同时有具体上下文说明（如 `chromeRestartWorkaround` + 函数 docstring 解释原因）
+- README / docs 描述历史决策（含 `Initially we used X but...`）
+
 **reviewer 检查方法**：
 - grep 关键词在代码注释 / PRD / 任务描述
 - 对比 `package.json` 版本 vs `design.md` 标的版本
 - 对比实现 vs PRD 的 AC 列表
+- **判断时**：
+  - 上下文有 why + 外部引用 + 在 user-facing 文案 → 例外不算违规
+  - 上下文只有"暂时这样"无原因 → R3 违规
+  - 在内部 PRD/设计文档"先做一半" → 必为 R3 违规（无例外）
 
 **违规处置**：该维度（通常是"完整性"）自动 ≤ 3 分 + `R3-XXX`
 
