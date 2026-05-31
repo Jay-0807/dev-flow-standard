@@ -104,12 +104,12 @@ PHASE 2.5 💡 方案发散（学 autodev-brainstorm）
    │  产出：iteration-vault/02.5-brainstorm-{diverge,converge}.md
    ▼
 PHASE 3   📐 影响面分析 + ADR
-   │  调用：engineering-codebase-onboarding-engineer + adr-skill
+   │  调用：engineering-codebase-onboarding-engineer + adr-skill + CodeGraph MCP（若已索引）
    │  产出：iteration-vault/03-impact-analysis.md + 03-adr.md
    ▼
 PHASE 4   🏗️ 架构与接口设计（含原 4.5 API 整理，GAN）
    │  内部两步：§1 大架构蓝图 / §2 API 整理 + 注册表
-   │  调用：writing-plans + database-architect + api-architect + /autodev-api + GAN
+   │  调用：writing-plans + database-architect + api-architect + /autodev-api + GAN + CodeGraph MCP（若已索引）
    │  产出：iteration-vault/04-architecture-and-api.md + 04-api-spec.yaml + 04-api-postman.json + 04-api.md
    │       + 持久化追加 <project-root>/api-registry.md
    ▼  🚨 R1 检查（含 API 子检查）
@@ -149,6 +149,7 @@ PHASE 11  📢 发布说明（GAN）
    │  产出：iteration-vault/11-release-notes.md + 11-release-gan/
    ▼
 PHASE 11.5 🔄 文档代码漂移检测（5 维度 + 三级警报，ERROR 阻塞 12）
+   │  调用：CodeGraph MCP（若已索引，验证 endpoint/依赖存在）
    │  产出：iteration-vault/11.5-sync-report.md
    ▼
 PHASE 12  🚀 git 发版
@@ -213,6 +214,13 @@ PHASE 13 🤖 autopilot 回流（仅 autopilot-triggered 迭代）
 ---
 
 ## 启动时主动反问（Step 0）
+
+> **Step 0 前置 · 经验召回（v5.1 新增 — 闭合跨迭代学习回路）**
+> 在复述需求之前**先翻历史再开干**，否则每轮迭代失忆、把上轮已修的坑重新踩一遍：
+> 1. Read 项目根 `CLAUDE.md`（若存在）—— 耐久铁律 / 已知坑
+> 2. Grep `iteration-vault/*/findings.md` + `iteration-vault/*/autonomous-decisions.md` + 自动记忆（`~/.claude/projects/<项目>/memory/`），匹配本次需求的领域关键词
+> 3. 命中旧教训 → 写进下面的"复述需求"（"上次在这块学到 X，本次沿用 / 避免 Y"），并作为强约束带进后续 phase；无命中则一句话说明"未发现相关历史经验"
+> 4. 配套收尾：Phase 12.5 / 13 收工时把本轮耐久教训**回写** `CLAUDE.md` + PRD + 自动记忆（读 = 召回，写 = 沉淀，两边都做回路才闭合）
 
 收到用户需求后，**先输出 3 件事再开干**（v5 删除第 4 项"批数选择"，工时下放到 📋 任务拆解 自动估算）：
 
@@ -321,6 +329,7 @@ PHASE 13 🤖 autopilot 回流（仅 autopilot-triggered 迭代）
 - Sentry MCP — Phase 8 / autopilot connector
 - Notion MCP — Phase 1.5 / autopilot connector
 - GitHub MCP / gh CLI — Phase 12
+- 🆕 CodeGraph MCP（条件式，若项目已 codegraph init）— Phase 3 影响面 / Phase 4 §2 API 调用图 / Phase 11.5 漂移验证
 
 **项目类型特殊路由**（详见 `reference/project-type-router.md`）：
 - **Web 全栈**：Phase 5 强制（Figma MCP），Phase 4 §2 API 偏 REST

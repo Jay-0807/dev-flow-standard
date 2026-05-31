@@ -13,6 +13,20 @@
 
 ## 工作流（3 步）
 
+### 🚀 CodeGraph 加速层（条件式 · 贯穿 Step 1 + Step 2，2026-05-30 加）
+
+**前置检测**：用 Glob 查 `<项目根>/.codegraph/codegraph.db` 是否存在。
+- 存在 → 该项目已建 CodeGraph 索引。Step 1 摸底**优先**用 `codegraph_context` 喂给 onboarding agent（或主线程直接拿影响面）、Step 2 交叉验证用 `codegraph_callers` 替代 Grep 查 import（token/tool-call 大降）。
+- 不存在 → 跳过本层，Step 1/2 照原逻辑（onboarding agent + Grep）。若项目是 TS/JS/Py/Go 等 CodeGraph 支持的栈且文件 >50，在 autonomous-decisions.md 建议「下次跑前 `codegraph init -i` 可省 token」。
+
+**可用时调用**（传 `projectPath=<项目根>`）：
+- `codegraph_context(task=<英文需求短语>)` — 一次拿入口点 + 相关符号 + 码
+- `codegraph_impact(symbol=<英文符号>,depth=2)` — 改动影响面
+- `codegraph_callers/callees(symbol=<英文符号>)` — 精确调用链（替代 Step 2 Grep）
+
+**2 条铁律**：① 英文 query（中文几乎空响应）；② 查函数/类/方法最准，常量/schema 字段追不到调用方 → 改查承载它的函数名。
+**边界**：CodeGraph 只索引代码不含 .md → 设计文档/README/schema 注释仍用 Read/Grep。
+
 **Step 1：调 engineering-codebase-onboarding-engineer 摸底**
 用 Agent 工具：`subagent_type: "engineering-codebase-onboarding-engineer"`，喂给它的 prompt：
 

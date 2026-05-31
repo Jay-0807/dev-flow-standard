@@ -37,12 +37,14 @@
 | Sentry MCP（mcp__sentry__*） | 22 | 8 + autopilot connector | Claude 输出"手动接入 Sentry"指南 |
 | Notion MCP 🆕 | - | autopilot connector | 仅 roadmap connector，跳过 Notion |
 | Gmail MCP 🆕（可选）| - | autopilot 用户反馈 | 跳过邮件源 |
+| CodeGraph MCP 🆕（条件式）| 10 | 3 影响面 / 4 §2 API 调用图 / 11.5 漂移 | 项目未 codegraph init 时 fallback Explore+Grep |
 
 **本机当前状态（2026-05-19 实测）**：
 - ✅ Figma MCP — 已装（17 工具可用）
 - ✅ Playwright MCP — 已装（23 工具可用）
 - ✅ Sentry MCP — 已装（22 工具可用）
 - ✅ Notion MCP — 已装
+- ✅ CodeGraph MCP — 已装（2026-05-30，10 工具，条件式，firefly 已索引 264 文件）
 
 ## 可选 skill（按项目需要）
 

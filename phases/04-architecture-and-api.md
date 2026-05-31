@@ -108,6 +108,8 @@ c) 调 GAN 引擎（`task_type: api-design`）生成详细 API 契约：
 
 ### 2.2 存量审计（每次都跑，**不跑 GAN**，纯机械扫描）
 
+> 🚀 **CodeGraph 加速层（条件式，2026-05-30 加）**：用 Glob 查 `<项目根>/.codegraph/codegraph.db`。存在 → 下方「调用关系图」维度**优先用 `codegraph_callers/callees(symbol=<英文符号>)`** 取精确调用链（替代「谁调谁」的 GPT 判定 + 路径模糊匹配）；不存在 → 照原逻辑（项目未索引时可在 autonomous-decisions.md 建议 `codegraph init`）。铁律：英文符号名、查函数不查常量；只索引代码不含 .md。
+
 读 `<project-root>/api-registry.md`（如不存在则用 `templates/api-registry.md` 初始化）。
 
 调 `integrations/api-architect.md` 的"9 项审计清单"，但仅跑 5 维（其余 4 维由 §2.1 GAN 覆盖）：

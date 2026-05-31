@@ -10,6 +10,9 @@ desktop.ini
 *.swo
 *.bak
 
+# CodeGraph tooling backups
+*.codegraph-bak
+
 # 临时
 *.log
 *.tmp
