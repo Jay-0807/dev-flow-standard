@@ -9,8 +9,8 @@
 
 ## 输入
 - `iteration-vault/02-PRD.md`
-- `iteration-vault/04-architecture.md`
-- `iteration-vault/05-ui-spec.md`（如有）
+- `iteration-vault/04-architecture-and-api.md`
+- `iteration-vault/05-interface-design.md`（如有）
 - `templates/task-breakdown.md`
 
 ## 工作流（4 步）

@@ -2,7 +2,7 @@
 
 > **来源**：wshobson/agents `database-architect.md` + VoltAgent/awesome-claude-code-subagents `database-administrator` 综合提炼。
 > **用法**：Phase 4 架构阶段、Phase 7 实施阶段（DB 任务）Read 本文件后，由本 skill 主线程亲自扮演 DB 架构师角色执行。
-> **项目适配**：默认假设 Next.js + Prisma/Drizzle（或类似 ORM）+ Postgres/MySQL。若实际栈不同，按比例类推。
+> **项目适配**：按启动时检测到的项目实际技术栈（见 project-type-router），含 ORM / 数据库选型。若实际栈与示例不同，按比例类推。
 
 ---
 
@@ -96,12 +96,12 @@
 
 ## 项目特定约束
 
-### 项目业务协议（如有）层（如适用）
-- 项目业务通信涉及的消息表（如 `agent_messages`）需要按主题分区
+### 自定 RPC / 协议层（如项目有）
+- 若项目有 agent / 服务间消息持久化，消息表（如 `agent_messages`）需要按主题分区
 - 消息保留期：按业务定（默认 90 天 + 归档冷库）
 - 消息 idempotency 通过 message-id 唯一索引保证
 
-### r4 隐形信息显性化（业务表）
+### 业务规则显性化（业务表）
 - 业务规则字段必须显性化（不要把规则编进代码）
 - 推荐 schema 模式：
   ```sql
@@ -117,14 +117,14 @@
   );
   ```
 
-### 电商客户场景
-- 订单 / 商品 / SKU 这类高写表，索引谨慎，避免每次写入都更新 5+ 索引
-- 营销活动 / 优惠券类表，注意活动结束后冷数据归档
-- 跨境业务：注意币种 / 时区 / 多语言字段的 schema 设计
+### 通用领域示例（高写表 / 冷数据 / 多区域）
+- 高写表（如订单 / 商品 / SKU 这类）索引谨慎，避免每次写入都更新 5+ 索引
+- 有时效的活动类表（如营销活动 / 优惠券），注意活动结束后冷数据归档
+- 多区域 / 跨境业务：注意币种 / 时区 / 多语言字段的 schema 设计
 
 ---
 
-## 输出格式（嵌入到 04-architecture.md 的 DB 段）
+## 输出格式（嵌入到 04-architecture-and-api.md 的 DB 段）
 
 ```markdown
 ## 3. 数据库设计
@@ -167,7 +167,7 @@
 - ❌ 给生产大表加索引而不计算开销
 - ❌ 直接 DROP COLUMN（必须先 deprecate）
 - ❌ 用 `SELECT *` 跨大表 JOIN
-- ❌ 把业务规则硬编码进 SQL（违反 r4 哲学）
+- ❌ 把业务规则硬编码进 SQL（业务规则必须显性化）
 - ❌ 明文存 PII 而无加密或审计
 - ❌ 改字段类型而不写 backward migration
 - ❌ 用串行自增 ID（暴露业务量、不可分片）

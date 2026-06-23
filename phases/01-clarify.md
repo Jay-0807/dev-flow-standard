@@ -43,8 +43,8 @@
 
 | 问题类型 | 示例 |
 |---|---|
-| 目标用户 | 这个功能主要给谁用？(选项：店主 / 客服 / 运营 / 全部) |
-| 触发场景 | 用户在什么场景下会用到？(选项：日常运营 / 大促前 / 出问题时) |
+| 目标用户 | 这个功能主要给谁用？(选项：终端用户 / 管理员 / 运营 / 全部，按项目领域定) |
+| 触发场景 | 用户在什么场景下会用到？(选项：日常使用 / 高峰期 / 出问题时) |
 | 边界 | 这次只做核心还是含 X？(选项：仅核心 / 含 X / 全做) |
 | 优先级 | 排在哪个 sprint？(选项：本 sprint / 下 sprint / 待定) |
 | 时间 | 有没有硬 deadline？(选项：本周 / 本月 / 无) |
@@ -77,7 +77,7 @@ Read `<project-business-context>.md（universal 版无 项目业务哲学（如�
 - 不包含：
 - 待定：
 
-## 隐性信息（r4 显性化）
+## 隐性信息（显性化）
 - 隐藏假设：
 - 人工保留点：
 - 数据来源 & 置信度：
@@ -112,5 +112,5 @@ Read `<project-business-context>.md（universal 版无 项目业务哲学（如�
 
 ## 失败回退
 - 若 PM 完全说不清需求 → 建议先单独跑一次 `brainstorming`，本 skill 等
-- 若 PM 描述的不是"需求"而是"调研需求"或"bug 报告" → 提示切换到 `firefly-deep-research-skill` 或 `systematic-debugging`
+- 若 PM 描述的不是"需求"而是"调研需求"或"bug 报告" → 提示切换到 `deep-research` 或 `systematic-debugging`
 - 若 PM 说"我们已经知道用户是谁"但又给不出具体证据 → 默认进 Phase 1.5（PM 强烈反对时跳过并 autonomous-decisions.md 留痕"PM 拒绝用户研究"）

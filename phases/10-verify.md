@@ -34,7 +34,7 @@
 - `iteration-vault/06-task-breakdown.md`（含 acceptance_criteria）
 - `iteration-vault/02-PRD.md` 的 AC
 - `iteration-vault/04-api-spec.yaml`（contract test 用）
-- `iteration-vault/04-architecture.md` 的契约定义
+- `iteration-vault/04-architecture-and-api.md` 的契约定义
 - `iteration-vault/09-review-reports/summary.md`（确保 must-fix 已修）
 - `integrations/test-planner.md`（测试策略层）
 - `principles/karpathy-llm-coding.md`

@@ -126,7 +126,7 @@ LLM prompt 模板：
 {{candidate_list}}
 
 请综合下面因素重新排序：
-- r4 哲学优先（与"隐形信息显性化"对齐的候选加分）
+- 隐形信息显性化对齐加分（与"业务规则显性化 / 人工保留点 / 数据来源标注"对齐的候选加分）
 - 用户研究历史（iteration-vault/history/*/01.5）的累积反馈
 - 战略协同（多个候选可能合并做更高效）
 
@@ -152,8 +152,8 @@ LLM prompt 模板：
 
 | 排名 | 来源 | 标题 | score | 大小 | 信号 | 证据 |
 |---|---|---|---|---|---|---|
-| 1 | roadmap | 给后台加 AI 选品建议二阶反馈 | 3.42 | M | impact=5/age=21d/conf=1.0 | roadmap.md#L42 |
-| 2 | sentry | TypeError in checkout flow | 2.95 | S | impact=4/freq=5/age=7d | sentry url |
+| 1 | roadmap | 给后台加二阶反馈建议模块 | 3.42 | M | impact=5/age=21d/conf=1.0 | roadmap.md#L42 |
+| 2 | sentry | TypeError in core processing flow | 2.95 | S | impact=4/freq=5/age=7d | sentry url |
 | ...
 
 ## 本轮 autopilot 拟选：#1
@@ -175,7 +175,7 @@ LLM prompt 模板：
 PM 可用 `/autopilot-debug <候选 ID>` 查看某候选的评分细节：
 
 ```
-Candidate: candidate-roadmap-042 "给后台加 AI 选品建议二阶反馈"
+Candidate: candidate-roadmap-042 "给后台加二阶反馈建议模块"
 
 Score breakdown:
 - business_impact: 5 → 1.0 × weight 0.30 = +0.300

@@ -1,4 +1,4 @@
-# 关卡机制 v4 — 2 个 PM 关卡 + Autonomous + 4 红线 Escalation + 跨夜分批
+# 关卡机制 v5 — 2 个 PM 关卡（快车道默认静默）+ Autonomous + 4 红线 Escalation + 跨夜分批
 
 > **v4 重大变化**：v2 是 1 个关卡（PRD）+ Phase 12 末"完成汇报"。v4 把"完成汇报"升级为正式 PM 关卡 = **Phase 12.5 早晨复盘**（结构化 4 步清单 + 4 选项）。
 >
@@ -6,7 +6,7 @@
 
 ---
 
-## 关卡总览（v4）
+## 关卡总览（v5）
 
 | 类型 | 触发位置 | 数量 | PM 参与 |
 |---|---|---|---|
@@ -16,6 +16,20 @@
 | 🚨 **红线 Escalation** | Phase 2.5-12 任意点 | 0-N 次 | 触发才参与 |
 | 📋 **Autonomous 决策** | Phase 2.5-12 持续 | 15-35 条 | 不参与（12.5 审计）|
 | 🔄 **决策回放（v4 新增，可选）** | 12.5 选 🔄 时 | 0-3 次 | PM 触发 + 选方向 |
+
+---
+
+## 🏃 快车道下的关卡行为（v5 新增）
+
+当 Step 0 判为 **🏃 快车道**（XS/S 且无风险面，详见 `reference/risk-fast-lane.md`）：
+
+- **2 个 PM 关卡（PRD + 早晨复盘）默认静默自动 ✅** —— 不弹 AskUserQuestion，不阻塞，决策按"保守默认决策树"自治并写入 `autonomous-decisions.md` 留痕。让"一句话需求 → 直接出可跑代码"成为默认体验。
+- **PM 可随时打开关卡**：启动时说"这次我要看 PRD 关卡"→ 该关卡恢复为正常 AskUserQuestion。
+- **红线 escalation（R1–R4）在快车道仍然全量生效** —— 快车道只静默"常规关卡"，绝不豁免红线。
+- **风险快车道例外**：若 Risk=✅（碰钱/认证/并发/数据完整性），关卡仍静默，但风险点代码**强制内联 round-1 GAN**，且 🛡️ 上线前检查加 L2 红线编号。
+- **自动升级**：快车道执行中若改动超出 S / 触发红线 / 风险 GAN 判 FAIL → 升级到标准 lane，**两个 PM 关卡随之恢复**。其中 ⛳ 关卡 1 PRD 此前在快车道被静默跳过，**恢复后须回头补做 PRD ⛳ 再继续**（PRD 是 03/04 上游输入）；补跑顺序见 `reference/risk-fast-lane.md` 的「🔁 升级回流表」。
+
+🚶 标准 / 🐢 重型 lane 下，以下关卡行为照常。
 
 ---
 
@@ -74,7 +88,7 @@ AskUserQuestion({
 
 PM 选 ✅ 后，本 skill 自动：
 1. 在 `iteration-vault/meta.json` 记 `prd_approved_at`
-2. 启动 autonomous 模式（Read `autonomous-mode.md`）
+2. 启动 autonomous 模式（Read `night-mode.md`）
 3. 依次跑 Phase 3 → 4 → ... → 12
 4. 跑完后做完成汇报（详见下文）
 
@@ -147,7 +161,7 @@ PM 选 ❌ → 回 Phase 1 重新澄清
 - **同步更新 RUN-LOG.md**：在当前业务名行加 🚨 标记 + 指向 DEBUG-TRACE.md E[NNN] anchor
 
 ### 2. 写 ESCALATION-R[N].md
-统一格式（详见 `autonomous-mode.md` 的"Escalation 触发后的标准流程"段）。
+统一格式（详见 `night-mode.md` 的"Escalation 触发后的标准流程"段）。
 关键：必有"skill 的倾向（基于保守默认）+ 候选方案 + 影响"。
 
 ### 3. 通知 PM
@@ -164,7 +178,7 @@ PM 给出方向后：
 
 ## 📋 Autonomous 决策记录（PM 不参与，但留痕）
 
-Phase 3-12 跑的过程中，每个**不构成红线但需要选择**的决策都按 `autonomous-mode.md` 的格式记入 `iteration-vault/autonomous-decisions.md`。
+Phase 3-12 跑的过程中，每个**不构成红线但需要选择**的决策都按 `night-mode.md` 的格式记入 `iteration-vault/autonomous-decisions.md`。
 
 **保守默认决策树（重点抄录，便于 skill 在线决策时查）**：
 
@@ -179,7 +193,7 @@ Phase 3-12 跑的过程中，每个**不构成红线但需要选择**的决策�
 | 升级依赖大版本 vs 维持 | 维持 | 除非必需 |
 | 破坏性 schema vs 兼容性 | 兼容性 | 可回滚 |
 | 启动即全量 vs 灰度 | 灰度 | 风险分摊 |
-| 全自动 vs 留人工兜底 | 留人工 | r4 哲学 + 合同 9.1 |
+| 全自动 vs 留人工兜底 | 留人工 | 高风险决策可回滚 + 项目合规要求（如有）|
 
 ---
 

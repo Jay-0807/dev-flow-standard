@@ -12,17 +12,16 @@
 
 ---
 
-## 1. 框架 & 依赖版本（实际填）
+## 1. 框架 & 依赖版本（启动时检测填入）
 
-- Next.js: 14.x
-- React: 18.x
-- Prisma: 5.x
-- Postgres: 15
-- TypeScript: 5.x
-- Tailwind: 3.x
-- 项目业务协议 SDK: <如有>
-- Sentry: 8.x
-- Langfuse: 3.x
+- 前端框架: <前端框架+版本>
+- ORM: <ORM+版本>
+- 数据库: <数据库+版本>
+- 语言: <语言+版本>
+- 样式方案: <如有，框架+版本>
+- 项目自定协议/RPC SDK: <如有>
+- 错误监控: <如有，工具+版本>
+- LLM 可观测性: <如有，工具+版本>
 
 [其他关键依赖按需追加]
 
@@ -36,7 +35,7 @@
 | 组件 | PascalCase | `UserOrders` |
 | 函数 | camelCase | `getUserOrders` |
 | DB 表/字段 | snake_case | `user_orders`, `created_at` |
-| 项目业务消息 | dot.notation | `order.cancel` |
+| 项目自定消息（如有）| dot.notation | `resource.action` |
 | 业务码 | UPPER_SNAKE | `YOUR_ERROR_CODE_EXAMPLE` |
 | API 路径 | snake_case + 复数 | `/api/v1/user_orders` |
 
@@ -45,11 +44,11 @@
 ## 3. API 鉴权 / 响应标准
 
 - 用户→后端: `Authorization: Bearer <JWT>`
-- agent→agent: mTLS + signed envelope
+- 服务间（如有自定协议）: mTLS + signed envelope；否则用标准 REST / gRPC / 事件
 - 第三方→后端: API key + per-key rate limit
 - 错误格式: **RFC 9457 Problem Details** 必含 `code` 业务码
-- 限流默认: per-user 100/min, per-tenant 1000/min, per-agent 500/min
-- 幂等: POST 必支持 `Idempotency-Key`，业务协议消息用 `message_id`（如适用）
+- 限流默认: per-user 100/min, per-tenant 1000/min, per-service 500/min
+- 幂等: POST 必支持 `Idempotency-Key`，自定协议消息用 `message_id`（如适用）
 
 ---
 
@@ -73,9 +72,9 @@
 
 - ❌ 直接删 API 接口（必须 deprecate → 6 月 → 真删）
 - ❌ LLM 输出 API 没 `confidence` 字段
-- ❌ 业务规则硬编码进代码（违反 r4 第 1 维）
+- ❌ 业务规则硬编码进代码（项目合规要求，如有）
 - ❌ 跨业务边界共享 DB 表
-- ❌ default to full info display（autodev-ui 反模式，**取代 r4 第 4 维**）
+- ❌ default to full info display（autodev-ui 反模式，UI 层 task-first）
 - ❌ 同资源混用 REST + GraphQL + RPC 两条路径
 - ❌ POST 用作 GET
 - ❌ 错误响应不带 code 字段
@@ -83,14 +82,18 @@
 
 ---
 
-## 6. r4 哲学（1-3 维保留，第 4 维废除）
+## 6. 项目合规要求（如有，按项目实际填）
 
-- **维度 1 业务规则显性化**: 业务规则进 `business_rule` 表，不进代码
-- **维度 2 人工保留点**: 高风险决策 API 必含 `human_review_required: bool`
-- **维度 3 数据来源标注**: 
+[以下为可选合规维度示例；无对应要求的项目可删除本节]
+
+- **业务规则显性化**（通用工程实践）: 业务规则进 `business_rule` 表，不进代码
+- **人工保留点**（通用工程实践）: 高风险决策 API 必含 `human_review_required: bool`
+- **数据来源标注**（通用工程实践）: 数据查询必含 `data_source: <表/API 名>`
+- **LLM API 元数据三字段（置信度 / 人工复核标记 / 数据来源）**（仅适用 AI 原生项目，非 AI 项目不强制）:
   - LLM 输出必含 `confidence: 0-1`
-  - 数据查询必含 `data_source: <表/API 名>`
-- ~~维度 4 用户心智隐形~~ **已废除**，UI 层让位 autodev-ui task-first
+  - 高风险 LLM 决策必含 `human_review_required: bool`
+  - LLM 响应必含 `data_source: <模型/表名>`
+- **UI 层**: task-first，避免 default-to-full-info（让位 autodev-ui）
 
 ---
 
@@ -99,7 +102,7 @@
 [每次迭代由 5.9 自动从 PRD/架构提取]
 
 例：
-- 本次涉及业务协议升级，所有业务 endpoint 用 v2 信封
+- 本次涉及项目自定协议升级（如有），所有相关 endpoint 用 v2 信封
 - 本次 DB 改动含破坏性 schema 变更，必须有 backward migration
 - ...
 

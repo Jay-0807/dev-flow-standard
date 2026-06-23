@@ -1,15 +1,15 @@
 ---
 name: universal-coding-project-development-skill
-description: 通用代码项目开发工作流编排器 v4（业务无关、技术栈无关）。PM 或开发者一句话需求，自动走完 17 阶段完整开发流水线（Phase 0/1/1.5/2/2.5/3/4/4.5/5a/5b/5.9/6/7/8/9/10/10.5/11/11.5/12/12.5/13）。8 大模块：API 整理 + 夜间模式 + Autopilot + GAN 引擎 + 文档压缩 + 方案发散 + 五层验收 + 漂移检测。2 个 PM 关卡（PRD + 早晨复盘），其余 autonomous 自治。支持 3 种项目类型分支（Web 全栈 / B 端 SaaS / AI 原生应用）自动路由。本 skill 编排（不替代）本机已装的 superpowers / adr-skill / Figma MCP / Playwright MCP / Sentry MCP 等。整合 Leooo-Huang/autodev-skills 实证设计（compress / brainstorm / verify / sync）+ Karpathy 4 LLM 编码原则 + 7 Quality Redlines。⚠️ 与 firefly-web-os-orchestrator-skill 严格区分：本 skill 不注入任何业务上下文；firefly 业务特化版 是带 项目业务哲学（如有） / 电商客户 / 项目业务协议（如有）的业务特化版，仅在 项目目录下使用。触发关键词："新需求"、"加个功能"、"想做个 X"、"需求来了"、"改一下 X"、"迭代 Y"、"下次版本"、"新一轮开发"、"跑完整代码开发流程"、"完整跑一遍"、"PRD please"、"new feature request"、"iteration"、"feature please"、"implement X"、"ship X"、"build me a"。
+description: 通用代码项目开发工作流编排器 v5（业务无关、技术栈无关）。PM 或开发者一句话需求，按体量与风险自动分级（🏃快车道 / 🚶标准 / 🐢重型）：中小且无风险面的需求走快车道（砍掉用户研究/方案发散/ADR/厚PRD，2 个 PM 关卡默认静默，一句话需求→直接出可跑代码），其余走完整 17 阶段流水线（Phase 1/1.5/2/2.5/3/4/5/5.9/6/7/8/9/10/11/11.5/12/12.5，+13 autopilot）。⚠️ 凡命中风险面（钱/认证/并发/数据完整性/合规）即便任务很小也强制保留对抗式 GAN——按 SIZE 定深度，按 RISK 定是否保 GAN。8 大模块：API 整理 + 夜间模式 + Autopilot + GAN 引擎 + 文档压缩 + 方案发散 + 五层验收 + 漂移检测。2 个 PM 关卡（PRD + 早晨复盘），其余 autonomous 自治。支持 3 种项目类型分支（Web 全栈 / B 端 SaaS / AI 原生应用）自动路由。本 skill 编排（不替代）本机已装的 superpowers / adr-skill / Figma MCP / Playwright MCP / Sentry MCP 等。整合 Leooo-Huang/autodev-skills 实证设计（compress / brainstorm / verify / sync）+ Karpathy 4 LLM 编码原则 + 7 Quality Redlines。⚠️ 与 firefly-web-os-orchestrator-skill 严格区分：本 skill 不注入任何业务上下文；firefly 业务特化版 是带 项目业务哲学（如有） / 电商客户 / 项目业务协议（如有）的业务特化版，仅在 项目目录下使用。触发关键词："新需求"、"加个功能"、"想做个 X"、"需求来了"、"改一下 X"、"迭代 Y"、"下次版本"、"新一轮开发"、"跑完整代码开发流程"、"完整跑一遍"、"PRD please"、"new feature request"、"iteration"、"feature please"、"implement X"、"ship X"、"build me a"。
 ---
 
-# Universal Coding Project Development Skill v4 — 通用代码项目开发工作流
+# Universal Coding Project Development Skill v5 — 通用代码项目开发工作流
 
 > **新手 5 分钟上手** → 先读 `ARCHITECTURE.md`（30 行顶层导航）+ `phases/MANIFEST.md`（17 步骤 I/O 一表），再回来读本文件。
 >
 > **业务名 vs 内部编号**：对 PM 暴露的所有文档（RUN-LOG / DEBUG-TRACE / 决策日志 / 早晨复盘）**必须用业务名 + emoji**（如 📝 PRD 撰写 / 🛡️ 上线前质量检查），禁止用 "Phase X" 编号。映射表见 `phases/MANIFEST.md`。
 >
-> **v4 = v2 的 13 phase + 8 大模块**（API 整理 / 夜间模式 v2 / Autopilot / GAN 引擎 / 文档压缩 / 方案发散 / 五层验收 / 漂移检测）。
+> **v5 = v4 + 风险分级快车道**（v4 = v2 的 13 phase + 8 大模块：API 整理 / 夜间模式 v2 / Autopilot / GAN 引擎 / 文档压缩 / 方案发散 / 五层验收 / 漂移检测）。v5 在其上加「按 SIZE 定深度 / 按 RISK 保 GAN」的快车道路由。
 >
 > 从 firefly-web-os-orchestrator-skill v4 backport，去除 firefly 业务上下文（r4 哲学 / 项目业务协议（如有） / 电商客户），保留所有通用机制。
 
@@ -39,16 +39,17 @@ PM 或开发者提出代码需求时，走完"想法 → PRD → 架构 → 设�
 
 ❌ **不应该触发**：
 - 用户在问问题（"X 是什么"）→ 直接答
-- 用户在做调研 → firefly-deep-research-skill
+- 用户在做调研 → deep-research（通用深度调研 skill）
 - 用户写文档 / 邮件 / PPT → 对应文档 skill
 - 用户在 项目目录里提需求 → firefly-web-os-orchestrator-skill
 - 用户只想跑一行 PoC → 直接动手，不要走流水线
 
 ---
 
-## 五条核心原则（v4 更新）
+## 六条核心原则（v5 更新）
 
-1. **2 关卡守门** — **关卡 1 PRD ⛳ + 关卡 2 早晨复盘 ⛳**（Phase 12.5）。其余 autonomous 自治。AskUserQuestion 给选项（PRD 3 选项 / 早晨复盘 4 选项）。
+0. **风险分级路由（v5 新增，最高优先）** — 启动时自动判 **SIZE**（XS/S/M/L）与 **RISK**（是否碰钱/认证/并发/数据完整性/合规）。**深度按 SIZE 定，是否保留 GAN/红线按 RISK 定，两者正交**。中小且无风险 → 🏃 快车道（砍用户研究/发散/ADR/厚PRD，2 关卡静默，直接出码）；命中风险面 → 即便任务小也**强制保留对抗式 GAN**（实证：碰钱/认证的任务"看着小、藏着坑"，按 SIZE 关 GAN 最致命）。完整路由矩阵见 `reference/risk-fast-lane.md`。
+1. **2 关卡守门** — **关卡 1 PRD ⛳ + 关卡 2 早晨复盘 ⛳**（Phase 12.5）。其余 autonomous 自治。AskUserQuestion 给选项（PRD 3 选项 / 早晨复盘 4 选项）。**快车道下两关卡默认静默自动 ✅**（PM 可在启动时显式要求打开）。
 2. **文档先于代码** — 每个关卡先在 `iteration-vault/` 落地 .md 文档。**v4 新增**：Phase 5.9 把厚设计文档压缩成 INDEX + RULES（"地图不是摘要"），实施 phase 强制读这两份不读全量。
 3. **本机优先 + 外部融合** — 优先用本机已装 skill（superpowers/autodev/角色 agent）；本机空白处用 `integrations/` 内化精华。**v4 新增**：integrations/gan-engine.md（对抗式生成）+ integrations/api-architect.md（API 9 维审计）。
 4. **项目类型敏感** — 启动时主动检测项目类型（Web 全栈 / B 端 SaaS / AI 原生），按类型注入不同默认（详见 `reference/project-type-router.md`）。
@@ -69,12 +70,17 @@ PM 或开发者提出代码需求时，走完"想法 → PRD → 架构 → 设�
 
 ---
 
-## 标准开发路径（默认且唯一）
+## 开发路径（3 条 lane，按 SIZE/RISK 自动路由，PM 不用选）
 
-PRD ⛳ 通过后 **自动一气呵成跑完到 🚀 git 发版**，PM 早上回来走 ☀️ 早晨复盘。
-**不存在 fast-track / standard / manual 三种模式选项 —— 就这一条路径。**
+启动时自动分级 → 落到三条 lane 之一，**全部 default-autonomous**（PM 不手动选 lane，系统判；判错可在执行中自动升级）：
 
-Autopilot（AI 主动捡需求开始跑）是**另一条入口**（cron tick 触发），复用本路径但启动方式不同。详见 `autopilot/README.md`。
+- 🏃 **快车道**（XS/S 且无风险）：💬 轻澄清 → 📚 INDEX+RULES → ⌨️ 实施 →（命中风险则内联 GAN）→ 🛡️ 上线前检查 → 🚀 发版。2 个 PM 关卡**默认静默自动 ✅**，一句话需求直接出可跑代码。
+- 🚶 **标准**（M）：完整 17 阶段，PRD ⛳ 通过后自动跑完到 🚀，PM 早上走 ☀️ 早晨复盘。
+- 🐢 **重型**（L）：17 阶段 + 跨夜分批 + 完整 GAN + 12.5 真人验收角色。
+
+**升级闸**：快车道执行中若改动超出 S / 触发红线 / 风险 GAN 判 FAIL，则**自动升级到标准 lane**——按 `reference/risk-fast-lane.md` 的「🔁 升级回流表」补跑被砍 phase（复用已写 prototype + INDEX/RULES，不推倒重来；2 个 PM 关卡恢复，PRD 关卡回头补做）。完整矩阵 + 回流表见该文件。
+
+Autopilot（AI 主动捡需求开始跑）是**另一条入口**（cron tick 触发），复用本路由但启动方式不同。详见 `autopilot/README.md`。
 
 ---
 
@@ -171,7 +177,7 @@ PHASE 13 🤖 autopilot 回流（仅 autopilot-triggered 迭代）
 
 ---
 
-## v4 8 大模块速查
+## 8 大模块速查
 
 | 模块 | 内容 | 位置 |
 |---|---|---|
@@ -186,11 +192,12 @@ PHASE 13 🤖 autopilot 回流（仅 autopilot-triggered 迭代）
 
 ---
 
-## 关卡机制 v4
+## 关卡机制 v5
 
 ### ⛳ PM 关卡 1：PRD 关卡（Phase 2）
 - AskUserQuestion 三选项（✅/🔄/❌）+ docx 产出 + Karpathy 4 原则自检 + GAN 引擎
-- ✅ 通过后追加问 **批数选择**（单批 / 2 批 / 3 批）
+- ✅ 通过后**直接进入 Phase 2.5 brainstorm**（v5 已删除"批数选择"跟进问；分批由 📋 任务拆解按工时自动估算）
+- 🏃 快车道下本关卡默认静默自动 ✅（不弹 AskUserQuestion，决策写 `autonomous-decisions.md`）
 
 ### 🌙 夜间模式自治执行（Phase 2.5-12，含分批）
 - 不打扰 PM，决策按"保守默认决策树"自治
@@ -222,22 +229,23 @@ PHASE 13 🤖 autopilot 回流（仅 autopilot-triggered 迭代）
 > 3. 命中旧教训 → 写进下面的"复述需求"（"上次在这块学到 X，本次沿用 / 避免 Y"），并作为强约束带进后续 phase；无命中则一句话说明"未发现相关历史经验"
 > 4. 配套收尾：Phase 12.5 / 13 收工时把本轮耐久教训**回写** `CLAUDE.md` + PRD + 自动记忆（读 = 召回，写 = 沉淀，两边都做回路才闭合）
 
-收到用户需求后，**先输出 3 件事再开干**（v5 删除第 4 项"批数选择"，工时下放到 📋 任务拆解 自动估算）：
+收到用户需求后，**默认 0 提问，自动判完直接开干**（一句话需求→直接出可跑代码是默认体验）。先在一条消息里**输出 3 件判定结果**（不是 3 个问题）：
 
 1. **复述需求** — 1-2 句话结构化复述（避免误解）
-2. **项目类型** — 用 AskUserQuestion 问（详见 `reference/project-type-router.md`）：
-   - Web 全栈（默认）
-   - B 端 SaaS
-   - AI 原生应用
-   - 别的（让用户描述）
-3. **跑哪一段** — 用 AskUserQuestion 问：
-   - 完整流程（默认，💬 需求澄清 → ☀️ 早晨复盘）
-   - 仅前段（截到 📝 PRD）—— PoC 期 / 只想出文档
-   - 仅后段（从已有代码到上线）—— 老项目接手
+2. **自动分级** — 不打扰 PM，自己判（详见 `reference/risk-fast-lane.md`）：
+   - **项目类型**：Read 工作目录清单文件（package.json / pyproject.toml / Cargo.toml…）静默判定 Web 全栈 / B 端 SaaS / AI 原生（详见 `reference/project-type-router.md`）。
+   - **SIZE**：XS / S / M / L（粗判）。
+   - **RISK**：是否命中钱/认证/并发/数据完整性/合规关键词。
+   - → 落到 **Lane**：🏃 快车道 / 🚶 标准 / 🐢 重型。写入 `00-intake.md` 顶部。
+3. **跑哪一段** — 默认 **完整流程**（按 lane 跑）；若工作目录已有成熟代码且需求是"上线/修复存量"，自动推断为"仅后段"。
 
-**不再问"几批跑"** — 系统在 📋 任务拆解 阶段自动估算：
-- < 8h → 单批跑（默认）
-- ≥ 8h → 主动提示"估算 Xh，是否分批"让 PM 二选一
+**只有这两种情况才反问 PM**（用 AskUserQuestion）：① 项目类型自动检测**不确定**；② 判为 🐢 重型 **或** 命中**高危子类**——确认范围与 lane。
+
+> ⚠️ **关键边界**：普通 `RISK=✅`（如纯前端金额计算 / 本地数据）**不触发反问**——它走 🏃 风险快车道，静默直跑、靠**强制内联 GAN** 兜底。只有满足"高危子类"判据（真实资金流转 / 销毁既有数据 / 改动认证授权边界，定义见 `reference/risk-fast-lane.md`）才反问。**别把任意"碰钱"升级成提问**，否则等于把刚省掉的 upfront 提问又加回来。
+
+其余一律静默默认，PM 想覆盖可随时说"这次我要看 PRD / 改用 B 端 SaaS / 只跑前段"。
+
+**不问"几批跑"** — 系统在 📋 任务拆解 阶段自动估算：< 8h 单批（默认）；≥ 8h 主动提示"估算 Xh，是否分批"让 PM 二选一。
 
 启动时也**主动检查工作目录**（Read package.json / pyproject.toml / Cargo.toml 等），如果发现是 项目，**主动提示用户**："这看起来是 项目，要不要改用 firefly-web-os-orchestrator-skill（业务特化版）？"
 
@@ -276,7 +284,7 @@ PHASE 13 🤖 autopilot 回流（仅 autopilot-triggered 迭代）
 └── meta.json
 ```
 
-**short-title** 从用户原 prompt 提取（如 "加个 AI 选品助手" → `ai-product-picker`）。
+**short-title** 从用户原 prompt 提取（如 "加个数据导出功能" → `data-export`）。
 
 **跨迭代持久化**：
 - `<project-root>/api-registry.md`（Phase 4 §2 API 整理 跨迭代追加）
@@ -357,17 +365,18 @@ PM 与 autopilot 交互的命令（完整规格见 `autopilot/pm-oversight.md`�
 
 ## 反方观点与限制
 
-- **不是银弹**：17 阶段适合"正经迭代"，不适合 1 行 PoC（PoC 直接动手就行）
+- **不是银弹**：完整 17 阶段适合 M/L"正经迭代"。XS/S 小需求走 🏃 快车道（自动砍外围）；真·1 行 PoC 仍建议直接动手不进流水线。
 - **依赖本机已装资源**：若 superpowers / adr-skill / Sentry MCP / Playwright MCP 缺失，对应阶段会**降级而非失败**
 - **AI 项目分支不完整**：当前 Langfuse MCP 仅 Prompt Management，trace/cost 仍要 Web UI
 - **自治模式风险**：4 红线 + 12.5 复盘是兜底，PRD 表达模糊时仍可能偏离 → PM 应在 Phase 1/2 充分澄清
-- **GAN 引擎 token 成本**：标准迭代 ~214 调用，完整迭代 ~380 调用。PM 可关闭 1.5 / 6 / 11 的 GAN 节省 30%。
+- **GAN 引擎 token 成本**：标准迭代 ~214 调用，完整迭代 ~380 调用。🏃 快车道默认大幅压缩（GAN 仅在命中风险面时内联 round-1，~30-40 调用即可抓出真 bug）；标准 lane 下 N 按 RISK 自适应（无风险 N=2-3）。**注意：省 GAN 要按 RISK 省，不要按 SIZE 省**——碰钱/认证的小任务正是丢了 GAN 最致命的地方。
 - **不绑定具体 Git workflow**：Phase 12 默认 release-please，PM 团队若用别的（GitFlow / trunk-based）可在 Phase 0 声明
 
 ---
 
 ## 进一步阅读
 
+- `reference/risk-fast-lane.md` — 🆕 风险分级快车道（按 SIZE 定深度 / 按 RISK 保 GAN 的路由矩阵）
 - `night-mode.md` — 夜间模式完整机制（4 件套）
 - `gates.md` — 关卡机制 + 4 红线
 - `gan-engine/role-router.md` — GAN 任务类型 → 4 维 + 视角注入

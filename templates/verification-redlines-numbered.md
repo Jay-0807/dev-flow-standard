@@ -33,7 +33,7 @@
 | 编号 | 位置 | 描述 | 关联 PRD AC |
 |---|---|---|---|
 | L1-001 | 06-task-breakdown.md #5 | acceptance_criteria #3 未满足: "用户登录后看到上次保存的草稿" | PRD §6 AC #3 |
-| L1-002 | 04-api-spec.yaml + impl | GET /users/:id 返回 schema 缺 confidence 字段 | PRD §7.3 r4 第 3 维 |
+| L1-002 | 04-api-spec.yaml + impl | GET /users/:id 返回 schema 缺 confidence 字段 | PRD §7.3 LLM 元数据字段（仅 AI 原生项目）|
 
 ---
 
@@ -77,16 +77,18 @@
 |---|---|---|
 | L2-R7-001 | 02-PRD.md §9 | "假设环境有 Docker" 无验证证据 |
 
-### R8 r4 三字段缺失（critical for LLM API）
+> ⚠️ **R8 / R9 不是通用版默认红线**。通用版（universal skill）只启用 Quality Redlines **R1–R7**（见 `gan-engine/quality-redlines.md`）。R8 仅适用 AI 原生项目，R9 仅有自定协议的项目；非对应项目不启用本两节。
+
+### R8 LLM API 元数据三字段缺失（仅适用 AI 原生项目；通用版默认不启用）
 | 编号 | 位置 | 详情 |
 |---|---|---|
 | L2-R8-001 | GET /api/v1/llm/pricing 实现 | 返回缺 confidence 字段 |
 | L2-R8-002 | POST /api/v1/llm/suggest | 缺 data_source 字段 |
 
-### R9 协议合规（critical for 项目业务协议）
+### R9 项目自定协议合规（如有）（仅有自定协议的项目；通用版默认不启用）
 | 编号 | 位置 | 详情 |
 |---|---|---|
-| L2-R9-001 | a2a:order.cancel 实现 | 消息信封缺 trace_id 字段 |
+| L2-R9-001 | order.cancel 自定协议实现 | 消息信封缺 trace_id 字段 |
 
 ---
 
@@ -155,8 +157,8 @@
 
 每条违规可追溯到 `iteration-vault/RULES.md`：
 - L2-R1 → RULES.md §4 R1 占位符
-- L2-R8 → RULES.md §6 r4 哲学
-- L2-R9 → RULES.md §3 项目消息信封（如有）
+- L2-R8 → RULES.md §6 LLM API 元数据三字段（仅 AI 原生项目）
+- L2-R9 → RULES.md §3 项目自定消息格式（如有）
 
 PM 在 Phase 12.5 早晨复盘可逐条查违规 + RULES 来源。
 

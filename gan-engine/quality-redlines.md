@@ -145,7 +145,7 @@
 > "Mandates OSS scanning documentation, comparison matrices for alternatives, explicit self-development justifications, and verification of last-30-days package data."
 
 **reviewer 检查方法**：
-- 看 `iteration-vault/04-architecture.md` 是否有 OSS 比较矩阵
+- 看 `iteration-vault/04-architecture-and-api.md` 是否有 OSS 比较矩阵
 - 看任务描述是否引用了 OSS 候选
 
 **违规处置**：该维度（通常是"代码质量"）自动 ≤ 3 分 + `R5-XXX`

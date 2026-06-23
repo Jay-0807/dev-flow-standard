@@ -17,9 +17,9 @@
 
 | 排名 | 来源 | 标题 | score | 大小 | 信号 | 证据 |
 |---|---|---|---|---|---|---|
-| 1 | roadmap | 给后台加 AI 选品建议二阶反馈 | 3.42 | M | impact=5/freq=3/age=21d/conf=1.0 | [link] |
+| 1 | roadmap | 给导出功能加二阶反馈 | 3.42 | M | impact=5/freq=3/age=21d/conf=1.0 | [link] |
 | 2 | sentry | TypeError in checkout flow | 2.95 | S | impact=4/freq=4/age=7d/conf=0.95 | [link] |
-| 3 | user-feedback | 定价计算页慢 | 2.78 | M | freq=4(4 轮重复)/age=42d | [link] |
+| 3 | user-feedback | 导出页加载慢 | 2.78 | M | freq=4(4 轮重复)/age=42d | [link] |
 | 4 | github-issues | 后台搜索响应太慢 | 2.65 | M | impact=4/freq=4/age=7d | [link] |
 | 5 | notion | 暗黑模式 | 2.10 | M | impact=3/freq=3/age=30d | [link] |
 | 6 | ... | ... | ... | ... | ... | ... |
@@ -32,7 +32,7 @@
 ### 候选详情
 
 - **ID**: candidate-roadmap-042
-- **标题**: 给后台加 AI 选品建议二阶反馈
+- **标题**: 给导出功能加二阶反馈
 - **来源**: ~/.autopilot-data/product-roadmap.md L5
 - **优先级 score**: 3.42（Top 1）
 

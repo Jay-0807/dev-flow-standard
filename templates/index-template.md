@@ -2,7 +2,7 @@
 
 > Phase 5.9 文档压缩自动生成 `iteration-vault/INDEX.md` 按本模板。
 >
-> ⚠️ **本模板技术栈和调用图使用 A2A 协议作示例**。PM 按实际项目技术栈和通信方式改造。
+> ⚠️ **本模板技术栈和调用图使用通用 REST 栈作示例**。PM 按实际项目技术栈和通信方式改造。
 
 ---
 
@@ -22,7 +22,7 @@
 
 ## 技术栈（一行）
 
-<项目技术栈，例：Next.js + Postgres + Sentry>
+<项目技术栈，启动时按检测填入，例：<前端框架> + <数据库> + <错误监控>>
 
 ---
 
@@ -35,7 +35,7 @@
 | PRD（背景/目标/用户故事/AC/风险）| 02-PRD.md | 全文（§1-§10）|
 | brainstorm（方案候选 + 收敛）| 02.5-brainstorm-converge.md | §3-§4 |
 | 影响面分析 | 03-impact-analysis.md | 全文 |
-| 架构（数据流 + 模块 + DB + 选型）| 04-architecture.md | §1/§3/§4 |
+| 架构（数据流 + 模块 + DB + 选型）| 04-architecture-and-api.md | §1/§3/§4 |
 | API 设计 + 存量审计 | 04-architecture-and-api.md | §1/§2/§3 |
 | API spec YAML | 04-api-spec.yaml | machine format |
 | UX flow（旅程 + IA + 线框）| 05-interface-design.md | §1-§4 |
@@ -50,8 +50,8 @@
 
 ## 核心约束（5 条速查）
 
-1. **r4 哲学 1-3 维**必落实（confidence / human_review_required / data_source）— 第 4 维已废除
-2. **项目业务协议（如有）信封 9 字段**强制（agent↔agent 通信）
+1. **项目合规要求（如有）**必落实（如 confidence / human_review_required / data_source）
+2. **业务消息信封字段**强制（如项目有 agent↔agent 通信协议）
 3. **RFC 9457 错误格式** + 业务码前缀（AUTH_/VALIDATION_/.../PROTOCOL_）
 4. **7 Quality Redlines**（详见 RULES.md）
 5. **Karpathy 4 原则**：Think / Simplicity / Surgical / Goal-Driven
@@ -62,9 +62,9 @@
 
 - **API 改动**: <N> 个新 endpoint，<M> 个业务协议主题（详见 04-architecture-and-api.md）
 - **UI 改动**: <X> 个新页面，<Y> 个修改页面（详见 05-interface-design.md）
-- **DB 改动**: <Z> 个新表 / <W> 个字段变更（详见 04-architecture.md §3）
+- **DB 改动**: <Z> 个新表 / <W> 个字段变更（详见 04-architecture-and-api.md §3）
 - **Phase 6 估算**: <T> 个 code task（<U> 含前端，<V> 机械）
-- **GAN 任务数**: <K>（PRD/架构/4.5/5a/6/11 + 7 实施 + autopilot 种子）
+- **GAN 任务数**: <K>（PRD/架构/4/5/6/11 + 7 实施 + autopilot 种子）
 - **关键风险**: <一句话>
 
 ---
@@ -73,12 +73,11 @@
 
 ```mermaid
 graph LR
-  A[用户] -->|HTTP REST| B[Next.js Frontend]
+  A[用户] -->|HTTP REST| B[Frontend]
   B -->|API| C[Backend]
-  C -->|A2A| D[Order Agent]
-  D -->|A2A| E[Inventory Agent]
-  D -->|A2A| F[Pricing Agent]
-  C -->|Prisma| G[(Postgres)]
+  C -->|内部调用| D[Service A]
+  C -->|内部调用| E[Service B]
+  C -->|SQL| G[(Database)]
 ```
 
 ---

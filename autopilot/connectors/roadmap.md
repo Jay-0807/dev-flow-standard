@@ -12,11 +12,11 @@
 格式约定：
 
 ```markdown
-# Firefly 产品 Roadmap
+# 产品 Roadmap
 
 ## 下一轮要做
-- [P0] AI 选品建议加二阶反馈（用户最痛）
-- [P0] 订单批量导出
+- [P0] 给导出功能加二阶反馈（用户最痛）
+- [P0] 列表批量导出
 - [P1] 后台搜索体验改进
 - [P2] 暗黑模式
 - [P2] 国际化
@@ -82,7 +82,7 @@ git -C ~/.autopilot-data blame -L <line>,<line> product-roadmap.md
 PM 在 bullet 后可加标注影响评分：
 
 ```markdown
-- [P0] AI 选品建议加二阶反馈 [size:M] [users:5] [age:21d]
+- [P0] 给导出功能加二阶反馈 [size:M] [users:5] [age:21d]
 ```
 
 | 标注 | 影响字段 |
@@ -129,9 +129,9 @@ connectors:
 - id: roadmap-a3f5b8d2
   source: roadmap
   source_ref: "~/.autopilot-data/product-roadmap.md#L5"
-  title: "AI 选品建议加二阶反馈"
-  description: "AI 选品建议加二阶反馈"
-  raw_evidence: "- [P0] AI 选品建议加二阶反馈（用户最痛）"
+  title: "给导出功能加二阶反馈"
+  description: "给导出功能加二阶反馈"
+  raw_evidence: "- [P0] 给导出功能加二阶反馈（用户最痛）"
   priority_signals:
     business_impact: 5         # P0 → 5
     user_pain_freq: 3          # roadmap 默认
@@ -142,7 +142,7 @@ connectors:
   blast_radius_hint:
     affected_files_guess: 8    # grep 估算
     touches_critical_path: false
-  tags: [enhancement, ai]      # 从"AI 选品"识别
+  tags: [enhancement, ai]      # 从"二阶反馈"识别
   created_at: 2026-05-23T09:01:30+08:00
 ```
 

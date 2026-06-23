@@ -9,7 +9,7 @@
 
 `iteration-vault/history/*/12.5-morning-review.md` 文件们。
 
-每个 10.5 报告含：
+每个 12.5 早晨复盘报告含（真人用户验收角色）：
 - 最爱
 - 最痛
 - 痛点聚类（cluster）
@@ -20,7 +20,7 @@
 
 ## 提取规则
 
-1. 列出所有历史迭代的 10.5 报告
+1. 列出所有历史迭代的 12.5 早晨复盘报告
 2. 对每个报告提取"最痛"段的痛点 + 各 cluster 段的痛点
 3. 跨迭代聚合：相同/相似痛点出现 ≥ N 次的算"反复痛点"（N 默认 2）
 4. 每个反复痛点变成一个 candidate
@@ -66,7 +66,7 @@
 | 情况 | 处理 |
 |---|---|
 | `iteration-vault/history/` 不存在或为空 | 拉 0 候选，回 IDLE |
-| 某 10.5 文件格式不对 | 跳过该文件，写 connector-error.log |
+| 某 12.5 文件格式不对 | 跳过该文件，写 connector-error.log |
 | 所有痛点都只出现 1 次 | 拉 0 候选（不算反复，不进 queue）|
 
 ---
@@ -89,19 +89,19 @@ connectors:
 
 ## 输出示例
 
-跨 5 次迭代发现"定价计算页加载慢" 痛点出现 4 次：
+跨 5 次迭代发现"导出页加载慢" 痛点出现 4 次：
 
 ```yaml
 - id: feedback-7d4e9a3c
   source: user-feedback
-  source_ref: "iteration-vault/history/2026-04-12-pricing/12.5-morning-review.md#L42"
-  title: "定价计算页加载慢"
-  description: "用户反复反馈定价页慢，4 次迭代里 4 个用户提到，最近一次评分 2.8/5"
+  source_ref: "iteration-vault/history/2026-04-12-export/12.5-morning-review.md#L42"
+  title: "导出页加载慢"
+  description: "用户反复反馈导出页慢，4 次迭代里 4 个用户提到，最近一次评分 2.8/5"
   raw_evidence: |
-    iter-2026-04-12: "定价页等了 5 秒，以为坏了"（用户 A）
-    iter-2026-04-19: "定价计算太慢"（用户 B）
-    iter-2026-05-03: "每次定价都得等"（用户 C）
-    iter-2026-05-15: "定价页慢得让人无语"（用户 D）
+    iter-2026-04-12: "导出页等了 5 秒，以为坏了"（用户 A）
+    iter-2026-04-19: "导出太慢"（用户 B）
+    iter-2026-05-03: "每次导出都得等"（用户 C）
+    iter-2026-05-15: "导出页慢得让人无语"（用户 D）
   priority_signals:
     business_impact: 4   # 4 次重复 → 4/5
     user_pain_freq: 4    # 同上
@@ -109,7 +109,7 @@ connectors:
     age_days: 42         # 第一次出现到今天
     confidence: 0.8
   estimated_size: medium
-  tags: [perf, pricing, ui]
+  tags: [perf, export, ui]
   created_at: 2026-05-23T09:01:30+08:00
 ```
 

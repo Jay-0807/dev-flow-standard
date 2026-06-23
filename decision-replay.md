@@ -45,7 +45,6 @@ iteration-vault/
     ├── ckpt-decision-007/              # 决策 #7 前的状态
     │   ├── meta.json
     │   ├── trigger.md                  # 触发本 checkpoint 的决策摘要
-    │   ├── 04-architecture.md.snapshot
     │   ├── 04-architecture-and-api.md.snapshot
     │   ├── 06-task-breakdown.md.snapshot
     │   └── autonomous-decisions.md.snapshot (decisions 1-6)
@@ -68,7 +67,6 @@ iteration-vault/
   "created_at": "2026-05-23T22:14:00+08:00",
   "vault_state_summary": "decisions 1-6 done, decision 7 pending",
   "snapshotted_files": [
-    "04-architecture.md",
     "04-architecture-and-api.md",
     "06-task-breakdown.md",
     "autonomous-decisions.md"

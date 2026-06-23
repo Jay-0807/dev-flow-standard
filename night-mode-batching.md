@@ -193,7 +193,6 @@ Batch 1 → Batch 2 之间 PM 可以做：
 ## 完成产出
 - iteration-vault/02.5-brainstorm-converge.md ✅
 - iteration-vault/03-impact-analysis.md ✅
-- iteration-vault/04-architecture.md ✅
 - iteration-vault/04-architecture-and-api.md ✅
 - iteration-vault/05-interface-design.md ✅
 - iteration-vault/INDEX.md ✅
@@ -202,7 +201,7 @@ Batch 1 → Batch 2 之间 PM 可以做：
 
 ## ⚠️ PM 可关注的（不阻塞）
 1. 决策 #7 选了 swr 不是 react-query — 看 autonomous-decisions.md
-2. 决策 #12 引入了新表 user_preferences — 看 04-architecture.md 第 4 节
+2. 决策 #12 引入了新表 user_preferences — 看 04-architecture-and-api.md 第 4 节
 3. ...
 
 ## 下批衔接备忘

@@ -2,7 +2,7 @@
 
 > **来源**：综合 PM 反馈 + `Leooo-Huang/autodev-skills` 项目实证（autodev-review / autodev-polish / autodev-verify）+ Karpathy 4 原则。
 > **用法**：本 skill 任何 phase 在需要"高质量生成"时调用本引擎完成单段任务（写 PRD / 设计 API / 实施代码任务 / 起草 release notes 等）。Phase 文件用 `## GAN 钩子` 段声明调用。
-> **项目适配**：reviewer prompt 注入 r4 哲学（1-3 维）+ 项目业务协议（如有）（如适用）+ Karpathy 4 原则 + 7 Quality Redlines。
+> **项目适配**：reviewer prompt 注入项目业务上下文（如有：业务规则显性化 / 人工保留点 / 数据来源标注）+ 项目自定协议/RPC（如有）（如适用）+ Karpathy 4 原则 + 7 Quality Redlines。
 
 ---
 
@@ -143,10 +143,10 @@ GAN_INVOKE(
 | **2.5 brainstorm** | ✅ | `brainstorm-diverge` + `brainstorm-converge` |
 | 3 影响面 | ❌ | - |
 | **4 架构** | ✅ | `architecture-design` |
-| **4.5 API 整理 Step 1** | ✅ | `api-design` |
-| 4.5 Step 2 审计 | ❌ | - |
-| **5a UX 设计** | ✅ | `ux-flow` |
-| 5b UI Spec | ❌ | - |
+| **4 §2 API 整理 Step 1** | ✅ | `api-design` |
+| 4 §2 Step 2 审计 | ❌ | - |
+| **5 §1 UX 设计** | ✅ | `ux-flow` |
+| 5 §2 UI Spec | ❌ | - |
 | 5.9 文档压缩 | ❌ | - |
 | **6 任务分解** | ✅ | `task-breakdown` |
 | **7 所有 code task** | ✅ | `code-task` (+ `ui-task` add-on) |
@@ -154,7 +154,6 @@ GAN_INVOKE(
 | 8 代码债 | ❌ | - |
 | 9 三路审查 | ⚠️ 本身即 Global GAN，不嵌套 | - |
 | 10 验收 | ❌ | - |
-| 10.5 用户验收 | ❌ | - |
 | **11 release notes** | ✅ | `release-notes` |
 | 11.5 漂移 | ❌ | - |
 | 12 git release | ❌ | - |

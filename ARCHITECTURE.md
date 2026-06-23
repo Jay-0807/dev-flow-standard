@@ -56,6 +56,7 @@ principles/
   karpathy-llm-coding.md  ← Karpathy 4 LLM 编码原则
 reference/
   slash-commands.md       ← 所有 slash 命令一表（必读）
+  risk-fast-lane.md       ← 🆕 风险分级快车道（按 SIZE 定深度 / 按 RISK 保 GAN）
   project-type-router.md  ← 3 种项目类型分支
   tool-inventory.md       ← 所有 skill / MCP 清单
   escalation-redlines.md  ← 4 红线判定 + 处理
@@ -127,4 +128,10 @@ templates/                ← 15 个产出模板
 - ✅ 合并 5a+5b → 🎨 界面设计
 - ✅ 质量红线 SSOT 化（只在 gan-engine/quality-redlines.md 维护）
 - ✅ 删除"批数选择"PM 关卡（系统自动估算 ≥8h 才提示分批）
-- ✅ 只保留 1 条标准开发路径（不再有 fast-track / standard / manual 三选项）
+
+## v5 路由（按 SIZE/RISK 自动分级）
+
+- 🏃 **快车道**（XS/S 且无风险）：砍用户研究/发散/ADR/厚PRD，2 关卡静默，一句话需求→直接出码
+- 🚶 **标准**（M）：完整 17 阶段
+- 🐢 **重型**（L）：17 阶段 + 跨夜分批 + 完整 GAN
+- ⚠️ **GAN 按 RISK 保留，不按 SIZE 砍**：碰钱/认证/并发/数据完整性的小任务也强制内联 GAN（详见 `reference/risk-fast-lane.md`）

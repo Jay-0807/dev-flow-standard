@@ -50,7 +50,7 @@
 ### I-001: package.json patch 版本
 - 文件：`package.json`
 - 详情：`react: 18.2.0 → 18.2.1`（patch）
-- 行动：✅ 已更新 `04-architecture.md §4` 技术栈段
+- 行动：✅ 已更新 `04-architecture-and-api.md §4` 技术栈段
 
 ### I-002: 新增 endpoint
 - 文件：`04-api-spec.yaml`
@@ -76,7 +76,7 @@
 - 文件：`src/order-flow/api/orders.ts`
 - 详情：新增 import `src/llm/pricing` （order-flow 模块原不依赖 LLM）
 - 影响：架构边界变化
-- 行动：⚠️ 已记，PM 决定是否需调 `04-architecture.md §1 数据流`
+- 行动：⚠️ 已记，PM 决定是否需调 `04-architecture-and-api.md §1 数据流`
 
 ---
 
@@ -109,7 +109,7 @@
 ## 自动同步的文档（INFO 级）
 
 本次自动改动的设计文档：
-- `04-architecture.md §4 技术栈`: react 18.2.1
+- `04-architecture-and-api.md §4 技术栈`: react 18.2.1
 - `04-architecture-and-api.md §2.6 废弃流水`: 加 1 行
 - `api-registry.md`: 追加 1 endpoint
 - `05-interface-design.md §3 用户旅程`: 补充 preferences 页面

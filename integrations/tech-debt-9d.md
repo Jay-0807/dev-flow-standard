@@ -2,7 +2,7 @@
 
 > **来源**：ksimback/tech-debt-skill + fastruby/tech-debt-skill + VoltAgent `legacy-modernizer` 综合提炼。
 > **用法**：Phase 8 Read 本文件后扮演资深 reviewer 角色，对本次 sprint 改动做 9 维度扫描。
-> **项目适配**：偏 TypeScript / Next.js 栈的具体模式。
+> **项目适配**：按启动时检测到的项目实际技术栈（见 project-type-router）。下文"典型模式"以 TypeScript 为示例，实际栈不同时按等价模式类推。
 
 ---
 
@@ -128,7 +128,7 @@
 **等级判定**：
 - 🟢 顺手清：当前文件抽常量
 - 🟡 backlog：迁移到 config 系统
-- 🔴 战略级：业务规则硬编码（违反 r4 哲学）
+- 🔴 战略级：业务规则硬编码（业务规则必须显性化）
 
 ---
 

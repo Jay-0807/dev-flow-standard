@@ -77,7 +77,7 @@ Phase 6 任务分解完成时估算总跑时：
 
 | 红线编号 | 触发条件 | 处理 |
 |---|---|---|
-| 🚨 R1 重大架构冲突 | 选型导致 vendor lock-in / 重构现有核心模块 / 引入与 项目协议（如有）冲突的库 / **Phase 4 §2 API 存量审计发现 ≥ 5 个接口违反 项目业务协议（如有）** / **新 API 设计无法兼容 项目消息信封（如有）** / **必须 breaking change 既有公开接口** | 暂停 → 写决策报告 → 等 PM 显式决策 |
+| 🚨 R1 重大架构冲突 | 选型导致 vendor lock-in / 重构现有核心模块 / 引入与 项目自定协议/RPC（如有）冲突的库 / **Phase 4 §2 API 存量审计发现 ≥ 5 个接口违反 项目自定协议/RPC（如有）** / **新 API 设计无法兼容 项目自定消息格式（如有）** / **必须 breaking change 既有公开接口** | 暂停 → 写决策报告 → 等 PM 显式决策 |
 | 🚨 R2 安全 must-fix > 3 项 | Phase 9 安全审查发现 ≥ 3 项阻塞发布的 must-fix 问题 | 暂停 → 列安全报告 → 等 PM 决定是否降级范围 |
 | 🚨 R3 验收 3 次重试仍挂 | Phase 10 五层验收失败，回 Phase 7 修，重试 3 次仍未通过 | 暂停 → 列失败模式分析 → 等 PM 决策（缩范围 / 改方案 / 推迟）|
 | 🚨 R4 删除既有功能 | 实施过程中发现必须删除某既有功能才能完成本次需求 | 暂停 → 列删除项 + 影响面 → 等 PM 明确同意 |
@@ -179,7 +179,7 @@ PM 早上**第一眼**就看这个文件（早晨复盘 Phase 12.5 Step 1）。�
 
 ### 决策密度预期
 
-一次完整的 Phase 2.5-11.5 跑大约会产生 **15-35 条 autonomous 决策**（v4 多了 Phase 2.5 / 4.5 / 5.9 / 11.5）。PM 早上花 10-15 分钟扫一遍决策日志就能知道发生了什么。
+一次完整的 Phase 2.5-11.5 跑大约会产生 **15-35 条 autonomous 决策**（v4 多了 Phase 2.5 / 4 §2 API 整理 / 5.9 / 11.5）。PM 早上花 10-15 分钟扫一遍决策日志就能知道发生了什么。
 
 如果某次跑产生 > 60 条决策 → 可能是 PRD 不够清晰，应该升级到红线 R1 让 PM 看下是否需要重做 PRD。
 
@@ -296,7 +296,7 @@ skill：
 - Batch 1 完成后等 PM "/next-batch" 启动 Batch 2
 ```
 
-### 内部机制（PM 不感知）— v4 含 Phase 2.5 + 4.5 + 5.9 + 11.5
+### 内部机制（PM 不感知）— v4 含 Phase 2.5 + 4 §2 API 整理 + 5.9 + 11.5
 
 ```
 （PRD 通过后）
@@ -306,11 +306,11 @@ PHASE 3 影响面（autonomous，~30 min）
    ↓
 PHASE 4 架构（autonomous + 保守默认，GAN）
    ↓ (R1 检查)
-PHASE 4.5 API 整理（autonomous，GAN Step 1 + 审计 + 注册表）
-   ↓ (R1 子检查：项目业务协议（如有）)
-PHASE 5a UX（autonomous，GAN，task-first 信息架构）
+PHASE 4 §2 API 整理（autonomous，GAN Step 1 + 审计 + 注册表）
+   ↓ (R1 子检查：项目自定协议/RPC（如有）)
+PHASE 5 §1 UX（autonomous，GAN，task-first 信息架构）
    ↓
-PHASE 5b UI Spec（autonomous）
+PHASE 5 §2 UI Spec（autonomous）
    ↓
 PHASE 5.9 文档压缩（autonomous，INDEX + RULES）
    ↓
@@ -328,8 +328,6 @@ PHASE 9 审查（autonomous，即 Global GAN）
    ↓ (R2 检查：安全 must-fix)
 PHASE 10 五层验收（autonomous + 最多 3 次重试 + 失败自动回退上一 Step）
    ↓ (R3 检查)
-PHASE 10.5 真人用户验收
-   ↓
 PHASE 11 发布说明（autonomous，GAN）
    ↓
 PHASE 11.5 漂移检测（autonomous，5 维度，ERROR 级阻塞 12）
@@ -358,9 +356,8 @@ Phase 12 完成时，skill 写一段简短摘要到 trace，触发 12.5：
 - 测试新增：[N] 条单测 / [M] 条 e2e / 覆盖率 [P]%
 - 安全审查：[已修 / must-fix 数]
 - 验收：五层 ✅ / PRD AC [N/M] 通过
-- 用户验收：[X.X]/5（[N] 真实用户）
 
-→ 进入 Phase 12.5 早晨复盘（PM 4 步清单 + 4 选项）
+→ 进入 Phase 12.5 早晨复盘（PM 4 步清单 + 4 选项，含真人用户验收角色）
 → 见 phases/12.5-morning-review.md
 ```
 
@@ -435,6 +432,6 @@ autonomous 模式 = Karpathy "Goal-Driven Execution" 的极致体现：
 
 ## 维护备忘
 
-- autonomous-mode.md 仍保留（向后兼容），但所有 PM 面向文档应引用 night-mode.md
+- autonomous 机制现并入 night-mode.md，所有 PM 面向文档应引用 night-mode.md
 - 每次跑过完整迭代，沉淀经验到本文件
 - Phase 12.5 / 决策回放 / 跨夜分批的实操细节见各自 .md 文件

@@ -1,6 +1,6 @@
 # Project Type Router — 3 种项目类型的阶段差异（v4 更新）
 
-启动时**主动判定项目类型**，影响 v4 17 phase 的子动作（重点：Phase 4 / 4.5 / 5a / 7 / 8 / 10）。
+启动时**主动判定项目类型**，影响 v4 17 phase 的子动作（重点：Phase 4 / 5 / 7 / 8 / 10）。
 
 ## 判定方法
 
@@ -38,9 +38,9 @@ A:
 | Phase | 默认动作 | 备注 |
 |---|---|---|
 | 4 架构 | + 前端架构 + 后端架构分别设计 | 必做 |
-| **4.5 API 整理** 🆕 | REST 为主；GraphQL 仅在多 client 复杂查询时考虑 | API 9 维审计 |
-| 5a UX | ✅ Figma MCP 拉低保真线框 | 必做 |
-| 5b UI Spec | ✅ 三态强制（空/错/loading）| 必做 |
+| **4 §2 API 整理** 🆕 | REST 为主；GraphQL 仅在多 client 复杂查询时考虑 | API 9 维审计 |
+| 5 §1 UX | ✅ Figma MCP 拉低保真线框 | 必做 |
+| 5 §2 UI Spec | ✅ 三态强制（空/错/loading）| 必做 |
 | **5.9 文档压缩** 🆕 | INDEX 含路由表 + 组件树 | 必做 |
 | 7 测试 | Playwright Test Agents（E2E 浏览器） | 主要 |
 | 7 安全 | OWASP Top 10 + Semgrep | XSS / SQL injection / CSRF 重点 |
@@ -56,12 +56,12 @@ A:
 |---|---|
 | 3 ADR | 多租户隔离方案（schema-per-tenant / row-level / column）必出 ADR |
 | 4 架构 | DB 设计加 tenant_id + RLS 策略 |
-| **4.5 API 整理** 🆕 | REST + GraphQL（B 端工作台常多端复用，GraphQL 减少 over-fetching）|
-| 5a UX | autodev-ui task-first 信息架构强制（B 端工作台反对全量展示）|
+| **4 §2 API 整理** 🆕 | REST + GraphQL（B 端工作台常多端复用，GraphQL 减少 over-fetching）|
+| 5 §1 UX | autodev-ui task-first 信息架构强制（B 端工作台反对全量展示）|
 | 6 实施 | 权限矩阵（RBAC / ABAC） |
 | 7 安全 | 加跨租户越权测试（IDOR）|
 | 8 可观测 | Sentry 按 tenant 分组 + 关键操作审计日志 |
-| **10.5 真人验收** 🆕 | 强制邀请 3-5 个真实 B 端用户（payback 高）|
+| **12.5 早晨复盘** 🆕 | B 端 SaaS：12.5 早晨复盘强制真人用户视角（邀真实 B 端用户复盘，payback 高）|
 
 ### 类型 C：AI 原生应用
 
@@ -71,8 +71,8 @@ LLM 为核心，可能纯 backend / API 模式。
 |---|---|
 | **2.5 brainstorm** 🆕 | DIVERGE 多走"LLM 实时 vs 规则 vs 混合"几种方案 |
 | 4 架构 | + Langfuse Prompt Management + LiteLLM Gateway 集成方案 |
-| **4.5 API 整理** 🆕 | REST + Server-Sent Events (SSE) 流式响应必做；可能含 agent-to-agent 协议（如有自研，定义信封格式）|
-| 5a UX | ⚠️ **可选** — 纯 API 产品跳过；有 chat UI 仍做 Figma |
+| **4 §2 API 整理** 🆕 | REST + Server-Sent Events (SSE) 流式响应必做；可能含 agent-to-agent 协议（如有自研，定义信封格式）|
+| 5 §1 UX | ⚠️ **可选** — 纯 API 产品跳过；有 chat UI 仍做 Figma |
 | 5 schema | 加 prompts 表 / runs 表 / evaluations 表 |
 | 6 实施 | + LangGraph 编排（多 agent 场景）/ + 状态机记录 |
 | 7 测试 | **加 Promptfoo** prompt 回归测评（YAML 声明式）|
@@ -86,7 +86,7 @@ LLM 为核心，可能纯 backend / API 模式。
 ⚠️ **AI 项目特殊提示**：
 - 当前 Langfuse 官方 MCP 仅 Prompt Management，**trace/cost 走 Web UI**（不能让 Claude 直接调）
 - Promptfoo / Garak / PyRIT 都是 **CLI 工具非 MCP**，调用要走 Bash
-- LLM 输出 API 强制加 `confidence` 字段（autodev R8 项目示例红线建议启用）
+- LLM 输出 API 强制加 `confidence` 字段（质量红线建议启用）
 
 ---
 

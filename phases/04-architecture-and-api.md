@@ -33,9 +33,9 @@
 - `templates/api-spec.md`
 - `templates/api-registry.md`
 - `integrations/api-architect.md`（9 项审计清单专家角色）
-- `<project-api-standards>.md（universal 版无 项目协议 规约，可由项目自定）`（项目协议 信封 + 错误码 + 限流）
-- `<project-positioning>.md（项目自定，无则跳过）`（§3.4 项目业务协议（如有）段）
-- `<project-business-context>.md（universal 版无 项目业务哲学（如有），可由项目自定）`（1-3 维：confidence / human_review / data_source）
+- `<project-api-standards>.md（universal 版无强制规约，可由项目自定）`（项目自定消息格式（如有） + 错误码 + 限流）
+- `<project-positioning>.md（项目自定，无则跳过）`（§3.4 项目自定协议/RPC（如有）段）
+- `<project-business-context>.md（项目自定，无则跳过）`（AI 原生项目的 LLM API 元数据三字段：confidence / human_review / data_source）
 - `principles/karpathy-llm-coding.md`
 - `<project-root>/api-registry.md`（跨迭代持久化文件；首次跑时若不存在则创建）
 
@@ -51,7 +51,7 @@
 要求它输出**架构方案**（不是任务清单——任务清单是 Phase 6 的事）：
 - 数据流图（文字描述即可，关键路径）
 - 模块拆分（哪些是新增组件、哪些是改既有）
-- 跨模块通信方式（直接调用 / 事件 / 项目业务协议（如有））— 仅提**通信方式**，**不设计具体 API 契约**（§2 做）
+- 跨模块通信方式（直接调用 / 事件 / 项目自定协议/RPC（如有），否则标准 REST/gRPC/事件）— 仅提**通信方式**，**不设计具体 API 契约**（§2 做）
 
 ### 1.2 数据库设计 — 集成 database-architect
 
@@ -92,8 +92,8 @@ b) 反推数据模型 → 反推 endpoint 列表
 c) 调 GAN 引擎（`task_type: api-design`）生成详细 API 契约：
    - 路径 / 方法 / 入参 / 出参 / 错误码（RFC 9457 Problem Details）
    - 鉴权 / 限流 / 幂等 / 版本兼容
-   - 项目业务协议（如有）适配（agent ↔ agent 通信用 项目消息信封（如有），不走 REST）
-   - r4 三字段嵌入（confidence / human_review_required / data_source）
+   - 项目自定协议/RPC（如有）适配（若项目有自定消息格式则遵循，否则用标准 REST/gRPC/事件）
+   - AI 原生项目：LLM API 元数据三字段嵌入（置信度 confidence / 人工复核标记 human_review_required / 数据来源 data_source）；非 AI 项目不强制
 
 **GAN 钩子**：
 - 任务类型：`api-design`
@@ -118,8 +118,8 @@ c) 调 GAN 引擎（`task_type: api-design`）生成详细 API 契约：
 |---|---|
 | **命名一致性** | 前缀 / 复数 / 动词风格 |
 | **重复检测** | 语义相似度（GPT 判定）+ 路径模糊匹配 |
-| **协议合规** | 信封字段齐全（message_id / sender / receiver / type / payload / confidence / human_review / timestamp / signature）|
-| **调用关系图** | 谁调谁，本次改动影响的下游 agent |
+| **契约合规** | 服务间契约一致（若项目有自定消息格式则按其必填字段校验，否则按标准 REST/gRPC 契约校验请求/响应 schema）|
+| **调用关系图** | 谁调谁，本次改动影响的下游服务 |
 | **废弃候选** | ≥ 6 个月未调用 OR 已被新接口覆盖 |
 
 **审计上限**：扫 ≤ 50 接口 / ≤ 15 min。超阈值降级为仅扫"被本迭代 impact 的接口"，autonomous-decisions.md 留痕降级。
@@ -141,15 +141,15 @@ c) 调 GAN 引擎（`task_type: api-design`）生成详细 API 契约：
 - 标 deprecated 候选（先 deprecate 不删，6 个月后真删）
 - 本迭代变更摘要追加到"### iter-<slug> @ <date>" 段
 
-### 2.4 Karpathy 4 + 项目协议（如有）双角自检
+### 2.4 Karpathy 4 + 项目自定协议（如有）双角自检
 
 逐项确认：
 - **Think Before Coding**：API 假设清单 ≥ 3 条已显性写出
 - **Simplicity First**：没顺手加无关 endpoint / 没 future-proof header / 单租户不预先做多租户隔离
 - **Surgical Changes**：本迭代只动必需接口；存量审计发现的命名不一致仅 flag，不顺手改（除非违规 ≥ 5 触 R1）
-- **Goal-Driven Execution**：每个新接口有可测 AC（schema 校验通过 / RFC 9457 错误码 / 项目消息信封（如有）齐全）
-- **r4 第 1-3 维**：业务规则不硬编码进 endpoint / 人工保留点字段存在 / confidence + data_source 字段存在
-- **协议合规**：项目业务协议（如有）信封完整
+- **Goal-Driven Execution**：每个新接口有可测 AC（schema 校验通过 / RFC 9457 错误码 / 项目自定消息格式（如有）齐全）
+- **业务规则显性化 / 人工保留点 / 数据来源标注**：业务规则不硬编码进 endpoint / 人工保留点字段存在 / 数据来源标注存在（AI 原生项目额外要求 confidence + data_source 字段）
+- **协议合规**：项目自定协议/RPC（如有）消息格式完整
 
 任一项 ❌ → 修，最多重试 2 次仍 ❌ → R1 升级。
 
@@ -178,7 +178,7 @@ c) 调 GAN 引擎（`task_type: api-design`）生成详细 API 契约：
 ### 1.5 兼容性 & 撤回方案（灰度策略 + 回滚步骤）
 
 ## 2. API 整理
-### 2.1 新 API 设计（UI 反推 + GAN 产出 + r4 三字段）
+### 2.1 新 API 设计（UI 反推 + GAN 产出 + LLM API 元数据三字段，AI 原生项目）
 ### 2.2 存量审计（5 维扫描结果）
 ### 2.3 文档导出 + 注册表更新摘要
 ### 2.4 Karpathy + 协议合规自检
@@ -231,15 +231,15 @@ c) 调 GAN 引擎（`task_type: api-design`）生成详细 API 契约：
 |---|---|---|
 | Vendor lock-in | 选型绑定某商业 API / 专有数据库 / 闭源 SDK | **触发 R1** |
 | 重构既有核心模块 | 不是扩展、是改/删 项目现有核心代码 ≥ 100 行 | **触发 R1** |
-| 项目业务协议（如有）冲突 | 引入与 项目协议（如有）设计冲突的库 | **触发 R1** |
+| 项目自定协议/RPC（如有）冲突 | 引入与项目自定协议/RPC（如有）设计冲突的库 | **触发 R1** |
 | 许可证不兼容 | 引入 GPL / 商业 license 与 项目栈不兼容 | **触发 R1** |
 
 #### API 子层 R1
 
 | 检查项 | 触发条件 | 命中怎么办 |
 |---|---|---|
-| 新 API 与协议根本冲突 | 不是适配能解决的 | **触发 R1** |
-| 存量违反协议 ≥ 5 项 | 全栈协议设计有系统性问题 | **触发 R1** |
+| 新 API 与项目自定协议/RPC（如有）根本冲突 | 不是适配能解决的 | **触发 R1** |
+| 存量违反服务间契约 ≥ 5 项 | 全栈契约设计有系统性问题 | **触发 R1** |
 | breaking change 公开接口 | v1 → v2 不兼容 | **触发 R1** |
 | 引入第三方 API gateway / 商业 API 平台 | vendor lock-in | **触发 R1** |
 
@@ -286,7 +286,7 @@ c) 调 GAN 引擎（`task_type: api-design`）生成详细 API 契约：
 | 失败 | 兜底 |
 |---|---|
 | PRD 要求功能在现有架构里几乎不可能优雅实现 | 升级，建议把本次需求拆成"重构 + 加功能"两个迭代 |
-| 技术选型 3 个候选难抉择 | 调 `firefly-deep-research-skill` 跑一次 tech-evaluation |
+| 技术选型 3 个候选难抉择 | 调 `deep-research` 跑一次 tech-evaluation |
 | /autodev-api 返回空 / 烂 | 降级单 gen + Karpathy 自检 + 手工按 templates/api-spec.md 起草 |
 | 注册表持久路径写不进 | 暂存 iteration-vault/04-api-registry-pending.md，下次 PM 决策迁移 |
 | 跨迭代注册表与本次设计冲突且无法和解 | R1 升级 |
@@ -301,8 +301,8 @@ c) 调 GAN 引擎（`task_type: api-design`）生成详细 API 契约：
 - ❌ endpoint 脱离 UI 实际需求（凭空设计）
 - ❌ 推测性字段（PM 没说要但你猜可能需要）
 - ❌ 错误处理不完整（只考虑 happy path）
-- ❌ 业务规则模糊（违反 r4 第 1 维"业务规则显性化"）
-- ❌ 给同一资源同时设计 REST 和项目业务协议 两条路径
+- ❌ 业务规则模糊（违反"业务规则显性化"原则）
+- ❌ 给同一资源同时设计 REST 和项目自定协议/RPC（如有）两条路径
 - ❌ POST 用作 GET（"我懒得设计 query string"）
 - ❌ 错误响应不带 code 字段，靠 http status 区分
 - ❌ 版本写在 query / cookie / header 三处不统一
@@ -315,7 +315,7 @@ c) 调 GAN 引擎（`task_type: api-design`）生成详细 API 契约：
 
 ## 维护备忘
 
-- 每跑完一次本 phase，把"哪类 API 模式经常违反项目业务协议"沉淀到 `integrations/api-architect.md`
+- 每跑完一次本 phase，把"哪类 API 模式经常违反项目自定协议/RPC（如有）"沉淀到 `integrations/api-architect.md`
 - 每三个迭代抽样 audit `api-registry.md`，删过期 deprecated 接口
 - /autodev-api 工具升级后，同步 §2.1 调用接口
 - DB 架构经验沉淀到 `integrations/database-architect.md`

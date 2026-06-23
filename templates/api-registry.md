@@ -4,12 +4,12 @@
 > **路径**：`<project-root>/api-registry.md`（与项目 git 一起 commit）
 > **首次创建**：Phase 4 §2 API 检测到不存在时用本模板初始化
 >
-> ⚠️ **本模板使用 A2A 协议作示例数据**（来自 firefly 项目）。PM 按实际项目协议调整：A2A? 列改为项目协议名（如 GraphQL / gRPC / REST），路径示例 `a2a:xxx` 改为项目实际格式。
+> ⚠️ **本模板使用通用 REST 接口作示例数据**。PM 按实际项目协议调整：「协议」列填项目实际协议名（如 REST / GraphQL / gRPC / 自研消息），路径示例改为项目实际格式。
 
 ---
 
 ```markdown
-# Firefly API Registry
+# API Registry
 
 > 本文件持久化跨多次迭代，每次 Phase 4 §2 API 自动追加更新。
 > 路径：`<project-root>/api-registry.md`（不在 iteration-vault/ 下，因为 vault 每次复位）
@@ -39,40 +39,29 @@
 
 ### auth.*
 
-| 接口 ID | 路径 / 主题 | 方法 | A2A? | 版本 | 引入迭代 | 最后审计 | 状态 | 调用方 | r4 字段齐全? |
+| 接口 ID | 路径 / 主题 | 方法 | 协议 | 版本 | 引入迭代 | 最后审计 | 状态 | 调用方 | 合规字段齐全?（如有）|
 |---|---|---|---|---|---|---|---|---|---|
-| auth.login | POST /api/v1/auth/login | POST | 否 | v1 | iter-001 | 2026-05-20 | active | web-frontend | n/a |
-| auth.refresh | POST /api/v1/auth/refresh | POST | 否 | v1 | iter-001 | 2026-05-20 | active | web-frontend | n/a |
-| auth.agent_handshake | a2a:auth.handshake | A2A | 是 | v1 | iter-003 | 2026-05-23 | active | all-agents | ✅ |
+| auth.login | POST /api/v1/auth/login | POST | REST | v1 | iter-001 | 2026-05-20 | active | web-frontend | n/a |
+| auth.refresh | POST /api/v1/auth/refresh | POST | REST | v1 | iter-001 | 2026-05-20 | active | web-frontend | n/a |
 
 ### user.*
 
-| 接口 ID | 路径 / 主题 | 方法 | A2A? | 版本 | 引入迭代 | 最后审计 | 状态 | 调用方 | r4 字段齐全? |
+| 接口 ID | 路径 / 主题 | 方法 | 协议 | 版本 | 引入迭代 | 最后审计 | 状态 | 调用方 | 合规字段齐全?（如有）|
 |---|---|---|---|---|---|---|---|---|---|
-| user.get | GET /api/v1/users/:id | GET | 否 | v1 | iter-001 | 2026-05-20 | active | web-frontend, order-agent | n/a |
+| user.get | GET /api/v1/users/:id | GET | REST | v1 | iter-001 | 2026-05-20 | active | web-frontend | n/a |
 
-### order.*
+### resource.*
 
-| 接口 ID | 路径 / 主题 | 方法 | A2A? | 版本 | 引入迭代 | 最后审计 | 状态 | 调用方 | r4 字段齐全? |
+| 接口 ID | 路径 / 主题 | 方法 | 协议 | 版本 | 引入迭代 | 最后审计 | 状态 | 调用方 | 合规字段齐全?（如有）|
 |---|---|---|---|---|---|---|---|---|---|
-| order.create | POST /api/v1/orders | POST | 否 | v1 | iter-001 | 2026-05-23 | active | web-frontend | n/a |
-| order.cancel | a2a:order.cancel | A2A | 是 | v1 | iter-002 | 2026-05-23 | active | order-agent, support-agent | ✅ |
-
-### product.* / sku.*
-
-| ... | ... | ... | ... | ... | ... | ... | ... | ... | ... |
-
-### <your-project-protocol>.*
-
-| 接口 ID | 主题 | 项目消息信封（如有）完整? | 版本 | 引入迭代 | 最后审计 | 状态 | 调用方 |
-|---|---|---|---|---|---|---|---|
-| a2a.inventory.sync | a2a:inventory.sync | ✅ | v1 | iter-002 | 2026-05-23 | active | inventory-agent |
+| resource.create | POST /api/v1/resources | POST | REST | v1 | iter-001 | 2026-05-23 | active | web-frontend | n/a |
+| resource.update | PATCH /api/v1/resources/:id | PATCH | REST | v1 | iter-002 | 2026-05-23 | active | web-frontend | n/a |
 
 ### llm.*
 
-| 接口 ID | 路径 / 主题 | 方法 | A2A? | 版本 | 引入迭代 | 最后审计 | 状态 | 调用方 | r4 字段齐全? |
+| 接口 ID | 路径 / 主题 | 方法 | 协议 | 版本 | 引入迭代 | 最后审计 | 状态 | 调用方 | 合规字段齐全?（如有）|
 |---|---|---|---|---|---|---|---|---|---|
-| llm.pricing_suggest | POST /api/v1/llm/pricing | POST | 否 | v1 | iter-005 | 2026-05-23 | active | order-agent | ✅（confidence + data_source）|
+| llm.suggest | POST /api/v1/llm/suggest | POST | REST | v1 | iter-005 | 2026-05-23 | active | web-frontend | ✅（confidence + data_source）|
 
 ---
 
@@ -89,10 +78,8 @@
 - `auth.*`: 鉴权 / 会话
 - `user.*`: 用户实体
 - `tenant.*`: 租户
-- `order.*` / `product.*` / `sku.*`: 电商业务
-- `inventory.*`: 库存
-- `pricing.*`: 价格
-- `<your-project-protocol>.*`: agent ↔ agent（仅 AI 原生项目）
+- `resource.*`: 业务资源（按实际领域命名，如 order/document/ticket 等）
+- `<your-project-protocol>.*`: 服务间自定协议/RPC（如有，按项目实际命名）
 - `llm.*`: LLM 调用相关
 - `webhook.*`: 第三方回调
 
@@ -102,12 +89,11 @@
 
 ### iter-005 @ 2026-05-23
 
-**新增** (2):
-- `llm.pricing_suggest` (POST /api/v1/llm/pricing) — AI 选品价格建议
-- `a2a.pricing_request` (a2a:pricing.request) — order-agent 向 pricing-agent 请求
+**新增** (1):
+- `llm.suggest` (POST /api/v1/llm/suggest) — LLM 建议接口
 
 **修改** (1):
-- `order.create` — 加 `pricing_suggestion_id` 参数（关联 llm.pricing_suggest 结果）
+- `resource.create` — 加 `suggestion_id` 参数（关联 llm.suggest 结果）
 
 **标 deprecated** (0):
 
@@ -115,7 +101,7 @@
 - `user.notify` 缺 confidence 字段 → 加上
 
 **审计发现 + 进 backlog** (1):
-- `inventory.sync` 缺 trace_id → 进 backlog
+- `resource.sync` 缺 trace_id → 进 backlog
 
 ### iter-004 @ 2026-05-15
 
@@ -127,8 +113,8 @@
 **新增** (8):
 - auth.login / auth.refresh / auth.logout
 - user.get / user.update
-- order.create / order.get
-- product.list
+- resource.create / resource.get
+- resource.list
 
 ---
 
@@ -140,11 +126,11 @@
 
 ---
 
-## 项目业务协议（如有）合规问题清单（backlog）
+## 项目自定协议（如有）合规问题清单（backlog）
 
 | 接口 | 缺失字段 | 发现于 | 严重度 | 拟修复迭代 |
 |---|---|---|---|---|
-| inventory.sync | trace_id | iter-005 | 🟡 | iter-006 |
+| resource.sync | trace_id | iter-005 | 🟡 | iter-006 |
 
 ---
 

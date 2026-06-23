@@ -36,11 +36,11 @@ cp <this-skill-path>/autopilot/config.yaml ~/.autopilot/config.yaml
 PM 在 `~/.autopilot-data/product-roadmap.md` 写下"下一轮要做"清单：
 
 ```markdown
-# Firefly 产品 Roadmap
+# 产品 Roadmap
 
 ## 下一轮要做
-- [P0] AI 选品建议加二阶反馈（用户最痛）
-- [P0] 订单批量导出（10.5 反复反馈）
+- [P0] 给导出功能加二阶反馈（用户最痛）
+- [P0] 列表批量导出（12.5 早晨复盘反复反馈）
 - [P1] 后台搜索体验改进
 - [P2] 暗黑模式
 - [P2] 国际化（多语言）
@@ -166,7 +166,7 @@ autopilot/
 ├── connectors/
 │   ├── README.md
 │   ├── roadmap.md               # 读 ~/.autopilot-data/product-roadmap.md
-│   ├── user-feedback.md         # 读 iteration-vault/history/*/10.5
+│   ├── user-feedback.md         # 读 iteration-vault/history/*/12.5-morning-review.md
 │   ├── github-issues.md         # gh issue list
 │   ├── sentry.md                # Sentry MCP
 │   └── notion.md                # Notion MCP

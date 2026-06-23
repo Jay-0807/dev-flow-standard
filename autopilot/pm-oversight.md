@@ -20,7 +20,7 @@ Last harvest: 27 candidates from 5 connectors
 Last ranked: 19 (after blacklist filter)
 
 Today's pick (#1):
-  - candidate-roadmap-042 "给后台加 AI 选品建议二阶反馈"
+  - candidate-roadmap-042 "给导出功能加二阶反馈"
   - score 3.42 / size M / 估算 5-7h
   - blast_radius: 8 文件 / 不触 critical path → ✅
   - safety brakes: 全通过
@@ -165,7 +165,7 @@ PM 不一定记得 slash 命令，自然语言也应触发：
 
 ## 待决策（1）
 
-### #1 candidate-roadmap-042 "给后台加 AI 选品建议二阶反馈"
+### #1 candidate-roadmap-042 "给导出功能加二阶反馈"
 
 - 来源: roadmap.md L42
 - 优先级 score: 3.42

@@ -63,7 +63,7 @@ CHANGELOG 会按 scope 分组。
 
 `<description>` 可以中文写：
 ```
-feat(auth): 加飞书 SSO 登录
+feat(auth): 加 SSO 登录
 fix(api): 修 N+1 查询导致首页慢
 ```
 
@@ -143,19 +143,22 @@ jobs:
 | `rust` | Rust 项目 | 维护 Cargo.toml + CHANGELOG |
 
 **autonomous 决策（本 skill 默认）**：
-- 主仓 Next.js + TypeScript → `node`
-- 子目录有 python 服务 → `python` (per-package)
+- 按启动时检测到的项目实际技术栈选择 release-type
+- 主仓为 Node/TypeScript（package.json）→ `node`
+- 主仓为 Python（pyproject.toml）→ `python`
+- 子目录有独立语言的服务 → 对应 release-type (per-package)
+- 多语言 / 不明确 → `simple`
 
 ### 进阶配置（多包 monorepo）
 
-如果 项目是 monorepo（多个 package），用 manifest 模式：
+如果项目是 monorepo（多个 package），用 manifest 模式：
 
 `release-please-config.json`:
 ```json
 {
   "packages": {
     "web": {"release-type": "node"},
-    "agent-runtime": {"release-type": "python"},
+    "backend": {"release-type": "python"},
     "shared-utils": {"release-type": "node"}
   }
 }
@@ -165,7 +168,7 @@ jobs:
 ```json
 {
   "web": "1.0.0",
-  "agent-runtime": "0.2.0",
+  "backend": "0.2.0",
   "shared-utils": "0.1.0"
 }
 ```
@@ -184,8 +187,8 @@ merge 到 main 后，release-please 自动维护一个 PR。典型 PR 描述：
 
 ### Features
 
-* **auth:** 加飞书 SSO 登录 ([abc1234](https://github.com/owner/repo/commit/abc1234))
-* **dashboard:** 新增店铺数据看板 ([def5678](https://github.com/owner/repo/commit/def5678))
+* **auth:** 加 SSO 登录 ([abc1234](https://github.com/owner/repo/commit/abc1234))
+* **dashboard:** 新增数据看板 ([def5678](https://github.com/owner/repo/commit/def5678))
 
 ### Bug Fixes
 
@@ -225,16 +228,16 @@ PM 早上看的就是这个 PR。
 
 ---
 
-## 与 项目的兼容性
+## 与项目约定的兼容性
 
-### 项目业务协议（如有）层
-项目业务协议（如有）改动需要 BREAKING CHANGE 警告（一改影响所有 agent）。
+### 共享契约 / 协议层
+共享契约（如 agent 间通信协议、公共 API 契约，如有）改动需要 BREAKING CHANGE 警告（一改影响所有下游）。
 
-### r4 哲学
-release notes 必须显性化"本次发布对人工保留点的影响"。如果改了某个 AC 规则的人工兜底逻辑，必须在 PR 描述里高亮。
+### 人工保留点
+release notes 必须显性化"本次发布对人工保留点的影响"。如果改了某个规则的人工兜底逻辑，必须在 PR 描述里高亮。
 
-### 合同条款
-若发版涉及合同条款（如 9.1 "AI 仅作建议"边界变更），autonomous-decisions.md 必标 ⚠️，让 PM 在 Release PR merge 前再 review 一次合同。
+### 项目合规要求（如有）
+若发版涉及项目合规边界变更（如"AI 仅作建议"类原则的边界），autonomous-decisions.md 必标 ⚠️，让 PM 在 Release PR merge 前再 review 一次合规要求。
 
 ---
 

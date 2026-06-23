@@ -9,7 +9,7 @@
 
 ## 输入
 - `iteration-vault/06-task-breakdown.md`（PM 已通过的任务树）
-- `iteration-vault/04-architecture.md`
+- `iteration-vault/04-architecture-and-api.md`
 - `integrations/database-architect.md`（DB 任务用）
 - `principles/karpathy-llm-coding.md`（**必读**：全局 LLM 编码 4 原则，spawn agent 时强制注入）
 
@@ -45,19 +45,19 @@ DB 任务通常在主 worktree 做（因为 migration 是单线串行的）。
 
 **🚀 前端组（worktree-fe）**：
 - 用 `/autodev-iterate` 处理每个前端任务
-- 适配重点：调用前注入 项目 UI 风格 + 任务 ID + 验收点
+- 适配重点：调用前注入项目实际 UI 风格 / 现有 design tokens（启动时检测）+ 任务 ID + 验收点
 - 任务示例：
 ```
 基于 06-task-breakdown.md 的任务 F1（新增 XXX 页面）和 F2（接入新接口），
-请按 04-architecture.md 的 UI 规格实施。
-风格遵循 项目现有 tokens，所有新增组件先看是否能复用 src/components/。
+请按 05-interface-design.md 的 UI 规格实施。
+风格遵循项目现有 design tokens（启动时检测），所有新增组件先看是否能复用现有组件目录。
 验收：UI 还原 90%+，dev server 跑起来 PM 能看到。
 ```
 
 **🚀 后端组（worktree-be）**：
 - 任务依赖 API：用 `/autodev-api` 先定契约，再 `/autodev-iterate` 实现
 - 任务不依赖 API：直接 `/autodev-iterate`
-- 适配重点：项目业务协议（如有）约束（见 <project-positioning>.md（项目自定，无则跳过））
+- 适配重点：检查跨服务契约——若项目有自定协议/RPC（如有，见项目定位文档（如有，无则跳过））则遵循，否则用标准 REST/gRPC/事件
 
 **🚀 数据库组（主 worktree）**：
 - Read `integrations/database-architect.md` 作为提示

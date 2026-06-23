@@ -19,10 +19,10 @@
     - 风险与依赖识别  # 是否标出已知风险和外部依赖
   perspective_files:  # reviewer prompt 注入的视角段
     - principles/karpathy-llm-coding.md      # Karpathy 4 原则
-    - <project-business-context>.md（项目自定，无则跳过）       # r4 哲学 1-3 维
+    - <project-business-context>.md（项目自定，无则跳过）       # 项目业务上下文（如有：业务规则显性化 / 人工保留点 / 数据来源标注）
     - <project-positioning>.md（项目自定，无则跳过）  # 目标客户 + 0 代码 PM 视角
   generator_instruction_extras:
-    - "PRD 必须含 r4 三字段在数据/规则层（confidence/human_review/data_source）"
+    - "PRD 必须含隐形信息显性化三字段在数据/规则层（confidence/human_review/data_source）"
     - "PRD 必须含 ≥3 条 ⭐ 标关键任务给 Phase 7"
 ```
 
@@ -75,7 +75,7 @@
   4_dimensions:
     - 资源建模    # REST/GraphQL/RPC 资源粒度对不对
     - 错误处理    # 错误码全 + RFC 9457
-    - 协议合规    # 是否符合项目业务协议（如有）
+    - 协议合规    # 项目自定协议合规（如有）：若项目有自定协议则遵循，否则用标准 REST/gRPC/事件
     - 演进策略    # 版本兼容 + deprecation 路径
   perspective_files:
     - principles/karpathy-llm-coding.md
@@ -85,7 +85,7 @@
   generator_instruction_extras:
     - "必须先从 UI 反推 API（autodev-api 铁律），不许凭空设计 endpoint"
     - "每个 endpoint 含：path / method / req / resp / errors / auth / rate-limit"
-    - "项目类型敏感：Web 全栈→REST 为主 / B 端 SaaS→REST+GraphQL / AI 原生→加 stream/SSE/agent 协议"
+    - "项目类型敏感：Web 全栈→REST 为主 / B 端 SaaS→REST+GraphQL / AI 原生→加 stream/SSE/项目自定协议（如有，否则标准 RPC）"
 ```
 
 ```yaml
@@ -169,7 +169,7 @@
     - principles/karpathy-llm-coding.md
     - <project-positioning>.md（项目自定，无则跳过）
   generator_instruction_extras:
-    - "引用 10.5 用户验收中的'用户最爱'+'用户最痛'"
+    - "引用 Phase 12.5 早晨复盘（真人用户验收角色）中的'用户最爱'+'用户最痛'"
     - "不要技术术语爆炸，PM 视角"
 ```
 
@@ -195,7 +195,7 @@
     - 画像具体度  # personas 是否具体可信
     - 痛点 ranking 站得住 # 排序有数据/调研支撑
     - 旅程完整    # user journey 闭环
-    - 心智隐形识别  # r4 第 4 维（应用到非 UI 层的心智识别）
+    - 心智隐形识别  # 用户心智隐形信息识别（应用到非 UI 层）
   perspective_files:
     - principles/karpathy-llm-coding.md
     - <project-business-context>.md（项目自定，无则跳过）     # 仅 1-3 维 + 心智识别（非 UI 应用）
@@ -254,7 +254,7 @@ GAN 引擎接到 phase 的调用时，先按 trigger_keywords 匹配；匹配多
   iteration: 2026-05-add-payment
   rounds: 4
   pivot_triggered: yes
-  notes: PIVOT 后 1 轮即 PASS。原方案误判了 r4 第 2 维（人工保留点没放）。
+  notes: PIVOT 后 1 轮即 PASS。原方案漏了人工保留点（隐形信息显性化的人工兜底维度没放）。
 ```
 
 跑过 ≥ 5 次迭代后，从经验沉淀里抽规律，反馈到 trigger_keywords / 4_dimensions / perspective_files。

@@ -33,7 +33,7 @@
 | MCP | 工具数 | Phase | 缺失降级 |
 |---|---|---|---|
 | Figma MCP（mcp__e6c31b9d__*） | 17 | 5a/5b | 让 PM 自己描述 UI |
-| Playwright MCP（mcp__playwright__*） | 23 | 10/10.5 | Claude 写 unit test 不写 E2E |
+| Playwright MCP（mcp__playwright__*） | 23 | 10/12.5 | Claude 写 unit test 不写 E2E |
 | Sentry MCP（mcp__sentry__*） | 22 | 8 + autopilot connector | Claude 输出"手动接入 Sentry"指南 |
 | Notion MCP 🆕 | - | autopilot connector | 仅 roadmap connector，跳过 Notion |
 | Gmail MCP 🆕（可选）| - | autopilot 用户反馈 | 跳过邮件源 |
@@ -44,7 +44,7 @@
 - ✅ Playwright MCP — 已装（23 工具可用）
 - ✅ Sentry MCP — 已装（22 工具可用）
 - ✅ Notion MCP — 已装
-- ✅ CodeGraph MCP — 已装（2026-05-30，10 工具，条件式，firefly 已索引 264 文件）
+- ✅ CodeGraph MCP — 已装（2026-05-30，10 工具，条件式，项目已索引后可用）
 
 ## 可选 skill（按项目需要）
 

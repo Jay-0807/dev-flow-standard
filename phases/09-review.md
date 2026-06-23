@@ -20,7 +20,7 @@
 用 Agent 工具：`subagent_type: "code-reviewer"`。
 喂给它：
 - 本次改动的 diff
-- 04-architecture.md（架构期望）
+- 04-architecture-and-api.md（架构期望）
 - 06-task-breakdown.md（任务清单）
 
 让它检查：
@@ -80,7 +80,7 @@ Read `integrations/owasp-llm-2025.md`，由本 skill 主线程亲自扮演 LLM �
 **C-3：合规审**
 若本次改动涉及用户数据 / 跨境 / 金融，调 Agent 工具：`subagent_type: "support-legal-compliance-checker"`。
 检查 GDPR / PIPL / 数据本地化 / 跨境合规。
-若 项目内有合同（如电商客户合同），同时比对合同里的人工保留点是否被遵守。
+若 项目内有合同（如有），同时比对合同里的人工保留点是否被遵守。
 
 输出汇总到：`iteration-vault/09-review-reports/security-review.md`
 
