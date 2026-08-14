@@ -30,14 +30,14 @@ PM 或开发者用一句话描述需求，这个 skill 自动编排「想法 →
 
 ```bash
 # macOS / Linux
-git clone https://github.com/Jay-0807/universal-coding-project-development-skill.git \
-  ~/.claude/skills/universal-coding-project-development-skill
+git clone https://github.com/Jay-0807/dev-flow-standard.git \
+  ~/.claude/skills/dev-flow-standard
 ```
 
 ```powershell
 # Windows (PowerShell)
-git clone https://github.com/Jay-0807/universal-coding-project-development-skill.git `
-  "$env:USERPROFILE\.claude\skills\universal-coding-project-development-skill"
+git clone https://github.com/Jay-0807/dev-flow-standard.git `
+  "$env:USERPROFILE\.claude\skills\dev-flow-standard"
 ```
 
 重启 Claude Code 后，skill 会被自动发现并按 `SKILL.md` 的 `description` 触发。
@@ -49,7 +49,7 @@ git clone https://github.com/Jay-0807/universal-coding-project-development-skill
 > 「新需求」「加个功能」「想做个 X」「需求来了」「改一下 X」「迭代 Y」「下次版本」「新一轮开发」「跑完整代码开发流程」
 > `new feature request` · `iteration` · `implement X` · `ship X` · `build me a ...`
 
-也可显式调用：`/universal-coding-project-development-skill`
+也可显式调用：`/dev-flow-standard`
 
 ### 3. 不该触发的场景
 

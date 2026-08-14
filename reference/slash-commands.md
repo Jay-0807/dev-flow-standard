@@ -1,6 +1,6 @@
 # Slash Commands 全清单
 
-> universal-coding-project-development-skill 的所有外部触发命令。
+> dev-flow-standard 的所有外部触发命令。
 > autopilot 命令独立列出（autopilot 是另一条入口，跟标准开发路径分开）。
 
 ---

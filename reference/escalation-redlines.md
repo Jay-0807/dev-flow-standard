@@ -26,8 +26,11 @@ A:
 
 ## R2：安全 must-fix > 3 条
 
+> **SSOT（唯一真相源）**：R2 阈值以本条为准 —— **must-fix > 3 条**（即 ≥ 4 条）触发。`gates.md` 的 R2 引用本条，不再独立定义阈值，避免 `≥3` / `>3` 两处打架。
+
 **触发条件**：
 - phase 7c 安全审查发现 > 3 条 must-fix 级别问题
+- 或：1 项极严重（CVSS ≥ 9）
 - must-fix 定义：会导致 SQL injection / XSS / RCE / 越权 / 凭证泄露 / 数据库未加密等高危
 - 不包括 should-fix（如缺少 rate limit）或 nice-to-fix（如 header 加固）
 

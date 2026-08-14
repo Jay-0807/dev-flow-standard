@@ -1,5 +1,6 @@
 ---
-name: universal-coding-project-development-skill
+name: dev-flow-standard
+user-invocable: true
 description: 通用代码项目开发工作流编排器 v5（业务无关、技术栈无关）。PM 或开发者一句话需求，按体量与风险自动分级（🏃快车道 / 🚶标准 / 🐢重型）：中小且无风险面的需求走快车道（砍掉用户研究/方案发散/ADR/厚PRD，2 个 PM 关卡默认静默，一句话需求→直接出可跑代码），其余走完整 17 阶段流水线（Phase 1/1.5/2/2.5/3/4/5/5.9/6/7/8/9/10/11/11.5/12/12.5，+13 autopilot）。⚠️ 凡命中风险面（钱/认证/并发/数据完整性/合规）即便任务很小也强制保留对抗式 GAN——按 SIZE 定深度，按 RISK 定是否保 GAN。8 大模块：API 整理 + 夜间模式 + Autopilot + GAN 引擎 + 文档压缩 + 方案发散 + 五层验收 + 漂移检测。2 个 PM 关卡（PRD + 早晨复盘），其余 autonomous 自治。支持 3 种项目类型分支（Web 全栈 / B 端 SaaS / AI 原生应用）自动路由。本 skill 编排（不替代）本机已装的 superpowers / adr-skill / Figma MCP / Playwright MCP / Sentry MCP 等。整合 Leooo-Huang/autodev-skills 实证设计（compress / brainstorm / verify / sync）+ Karpathy 4 LLM 编码原则 + 7 Quality Redlines。⚠️ 与 firefly-web-os-orchestrator-skill 严格区分：本 skill 不注入任何业务上下文；firefly 业务特化版 是带 项目业务哲学（如有） / 电商客户 / 项目业务协议（如有）的业务特化版，仅在 项目目录下使用。触发关键词："新需求"、"加个功能"、"想做个 X"、"需求来了"、"改一下 X"、"迭代 Y"、"下次版本"、"新一轮开发"、"跑完整代码开发流程"、"完整跑一遍"、"PRD please"、"new feature request"、"iteration"、"feature please"、"implement X"、"ship X"、"build me a"。
 ---
 

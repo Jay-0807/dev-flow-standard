@@ -57,7 +57,7 @@ DB 任务通常在主 worktree 做（因为 migration 是单线串行的）。
 **🚀 后端组（worktree-be）**：
 - 任务依赖 API：用 `/autodev-api` 先定契约，再 `/autodev-iterate` 实现
 - 任务不依赖 API：直接 `/autodev-iterate`
-- 适配重点：检查跨服务契约——若项目有自定协议/RPC（如有，见项目定位文档（如有，无则跳过））则遵循，否则用标准 REST/gRPC/事件
+- 适配重点：检查跨服务契约——若项目有自定协议/RPC 则遵循（参见项目定位文档，如有），否则用标准 REST/gRPC/事件
 
 **🚀 数据库组（主 worktree）**：
 - Read `integrations/database-architect.md` 作为提示

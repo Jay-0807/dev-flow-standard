@@ -221,7 +221,10 @@ GAN 引擎接到 phase 的调用时，先按 trigger_keywords 匹配；匹配多
 
 例：调用提到"Phase 4 §2 API 设计" → 匹配 `api-design`（更具体），不匹配 `architecture-design`。
 
-匹配失败时 fallback 到通用 `prd-writing` 配置 + 在 trace.md 标 `task_type_unmatched`。
+**匹配失败时（fail-loud，不静默）**：
+- **不**静默 fallback 到 `prd-writing` 维度审——用错维度审等于假装审过，比不审更危险。
+- 改为：在 trace.md 标 **`WARN: task_type_unmatched`**，并 fallback 到**最严的 `code-task` 4 维**（完整性 / 鲁棒性 / 设计一致 / 代码质量）过审，宁严勿松。
+- 该 WARN 同步记入 `autonomous-decisions.md`，供早晨复盘知情。
 
 ---
 
@@ -232,7 +235,7 @@ GAN 引擎接到 phase 的调用时，先按 trigger_keywords 匹配；匹配多
 注意：
 - 文件路径相对于本 skill 根目录
 - 加载时按列表顺序拼接（前面的视角更优先被引用）
-- 加载失败（文件不存在）时跳过该视角 + 在 trace.md 标 `perspective_missing: <path>`
+- **加载失败（文件不存在）时不静默跳过**：在 trace.md 标 **`WARN: perspective_missing: <path>`** 并**高亮**（同步记入 `autonomous-decisions.md`）。缺的若是 security / owasp 类关键视角（如 `integrations/owasp-llm-2025.md`），额外在 `autonomous-decisions.md` 标 ⚠️ 并在早晨复盘高亮——缺关键视角却静默审过 = 假装审过，比不审更危险。
 
 ---
 
